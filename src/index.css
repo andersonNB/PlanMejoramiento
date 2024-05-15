@@ -1,0 +1,22 @@
+:root {
+  font-family: "Source Code Pro", monospace !important;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+  font-style: normal;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background: linear-gradient(0deg, rgb(231, 41, 41) 39%, rgba(221,75,57,1) 100%) no-repeat;
+  height: 100vh;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+  margin: 0;
+}
+
