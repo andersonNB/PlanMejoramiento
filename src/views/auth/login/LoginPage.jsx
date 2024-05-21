@@ -36,6 +36,7 @@ const LoginPage = ({ isAdmin }) => {
 	const history = useNavigate();
 
 	const responseGoogle = (response) => {
+		console.log(response)
 		const parts = response.credential.split('.');
 		if (parts.length !== 3) {
 			throw new Error('Invalid token format');

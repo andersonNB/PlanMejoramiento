@@ -1,15 +1,20 @@
 import { createBrowserRouter ,  } from 'react-router-dom';
-import Home from '../components/Home/Home';
-import LoginPage from '../components/Login/LoginPage';
+import HomePage from '../views/Home/HomePage';
+import LoginPage from '../views/auth/login/LoginPage';
+import { AcademyProgram } from '../components/AcademyProgram/AcademyProgram';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <LoginPage isAdmin={true} />,
+		element: <LoginPage isAdmin={false} />,
 	},
 	{
 		path: '/dashboard',
-		element: <Home />,
+		element: <HomePage />,
+	},
+	{
+		path:'/programa-academico',
+		element: <AcademyProgram/>
 	}
 ]);
 
