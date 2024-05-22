@@ -1,8 +1,10 @@
 import { Row, Col, Form, Input, Button } from 'antd';
+import { getAcademicProgramID } from '../../services/programAcademic/programAcademicServices';
 
 export const AcademyProgram = () => {
 	const onSubmitProgram = (values) => {
 		console.log(values);
+		getAcademicProgramID(values)
 	};
 
 	return (
@@ -25,7 +27,7 @@ export const AcademyProgram = () => {
 				>
 					<Form.Item
 						label='Nombre'
-						name='programName'
+						name='pracNombre'
 						rules={[
 							{
 								required: true,
@@ -43,7 +45,7 @@ export const AcademyProgram = () => {
 
 					<Form.Item
 						label='Codigo'
-						name='programCode'
+						name='pracCodigo'
 						style={{ backgroundColor: 'yellowgreen' }}
 						rules={[
 							{
@@ -56,7 +58,7 @@ export const AcademyProgram = () => {
 						// 	lg: { span: 12, offset: 6 },
 						// }}
 					>
-						<Input placeholder='codigo programa' />
+						<Input placeholder='codigo programa' type="number" />
 					</Form.Item>
 
 					<Form.Item

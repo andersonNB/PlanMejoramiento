@@ -6,7 +6,7 @@ import { AcademyProgram } from '../components/AcademyProgram/AcademyProgram';
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <LoginPage isAdmin={false} />,
+		element: <LoginPage isAdmin={true} />,
 	},
 	{
 		path: '/dashboard',
