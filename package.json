@@ -1,11 +1,12 @@
 {
   "name": "frontplanmejoramiento",
   "private": true,
+  "homepage":"https://andersonnb.github.io/PlanMejoramiento/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp -r build/* docs/",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
