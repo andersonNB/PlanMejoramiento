@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { tGetAllAcademicProgram, tUpdateAcademicProgram } from '../../store/slice/programAcademic/thunkProgramAcademic';
+import { tCreateAcademicProgram, tDeleteAcademicProgram, tGetAllAcademicProgram, tUpdateAcademicProgram } from '../../store/slice/programAcademic/thunkProgramAcademic';
 
 const useSelectorProgramAcademic = () => {
 	const dispatch = useDispatch();
@@ -9,8 +9,18 @@ const useSelectorProgramAcademic = () => {
 		dispatch(tGetAllAcademicProgram());
 	};
 
+	const createAcademicProgram = ({ pracNombre, pracCodigo },objAcademicProgram) => {
+		dispatch(tCreateAcademicProgram({ pracNombre, pracCodigo },objAcademicProgram));
+	
+	}
+
 	const updateAcademicProgram = (pracId, { pracNombre, pracCodigo }, index) => {
 		dispatch(tUpdateAcademicProgram(pracId, { pracNombre, pracCodigo }, index));
+	};
+
+
+	const deleteAcademicProgram = ({pracId}) => {
+		dispatch(tDeleteAcademicProgram(pracId));
 	};
 
 	return {
@@ -19,6 +29,8 @@ const useSelectorProgramAcademic = () => {
 		//FUNCTIONS
 		getAllAcademicProgram,
 		updateAcademicProgram,
+		deleteAcademicProgram,
+		createAcademicProgram,
 	};
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
 import PropTypes from 'prop-types';
 import useSelectorProgramAcademic from '../../hooks/selectors/useSelectorProgramAcademic';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
 	const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
@@ -33,7 +34,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 	const [form] = Form.useForm();
 	const [editingKey, setEditingKey] = useState('');
 	const isEditing = (record) => record.pracId === editingKey;
-	const { updateAcademicProgram } = useSelectorProgramAcademic();
+	const { updateAcademicProgram, deleteAcademicProgram } = useSelectorProgramAcademic();
 
 	const edit = (record) => {
 		console.log({ record });
@@ -44,18 +45,23 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 		setEditingKey(record.pracId);
 	};
 
+	const deleteProgram = (record) => {
+		//TODO: Llamar al servicio de eliminar
+		//TODO: Actualizar el estado de la tabla
+		const { pracId } = record;
+		return deleteAcademicProgram({pracId});
+	};
+
 	const cancel = () => {
 		setEditingKey('');
 	};
 
-	const save = async (key) => {
-		// 1. Cuando le de click en Save llamar al servicio de actualizar
-		// 2. Actualizar el estado de la tabla
+	const save = async (key) => {		
 
 		try {
 			const row = await form.validateFields();
 			const newData = [...datasource];
-			const index = newData.findIndex((item) => key === item.pracId);
+			const index = newData.findIndex((item) => key === item?.pracId);
 			console.log(index);
 			if (index > -1) {
 				const item = newData[index];
@@ -113,14 +119,19 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 						>
 							Guardar
 						</Typography.Link>
-						<Popconfirm title='Sure to cancel?' onConfirm={cancel}>
+						<Popconfirm title='Deseas cancelar?' onConfirm={cancel} okText="Si">
 							<a>Cancelar</a>
 						</Popconfirm>
 					</span>
 				) : (
-					<Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-						Editar
-					</Typography.Link>
+					<>
+						<Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)} style={{ margin: 15 }}>
+							<EditOutlined /> Editar
+						</Typography.Link>
+						<Typography.Link disabled={editingKey !== ''} onClick={() => deleteProgram(record)}>
+							<DeleteOutlined /> Eliminar
+						</Typography.Link>
+					</>
 				);
 			},
 		},

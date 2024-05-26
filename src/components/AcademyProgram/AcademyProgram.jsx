@@ -1,19 +1,23 @@
 import { useEffect } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
-import { getAcademicProgramID } from '../../services/programAcademic/programAcademicServices';
 import TableDinamic from '../Table/Table';
 import useSelectorProgramAcademic from '../../hooks/selectors/useSelectorProgramAcademic';
 
 export const AcademyProgram = () => {
-	const { getAllAcademicProgram, academicPrograms } = useSelectorProgramAcademic();
+	const [form] = Form.useForm();
+	const { getAllAcademicProgram, academicPrograms, createAcademicProgram } = useSelectorProgramAcademic();
 
+	// TODO: Mirar por que se llama el servicio 3 veces
+	console.log(academicPrograms.length);
 	useEffect(() => {
 		getAllAcademicProgram();
-	}, [academicPrograms.length]);
+	}, [academicPrograms?.length]);
 
 	const onSubmitProgram = (values) => {
 		console.log(values);
-		getAcademicProgramID(values);
+		const { pracNombre, pracCodigo } = values;
+		createAcademicProgram({ pracNombre, pracCodigo }, values);
+		form.resetFields();
 	};
 
 	return (
@@ -23,6 +27,7 @@ export const AcademyProgram = () => {
 			</Col>
 			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: 'salmon' }}>
 				<Form
+					form={form}
 					name='formLogin'
 					layout='horizontal'
 					onFinish={onSubmitProgram}

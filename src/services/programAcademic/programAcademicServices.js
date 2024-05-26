@@ -1,7 +1,7 @@
 import planDeMejoramientoApi from '../wrappers/programAcademicWrapper';
 
 //Conseguir programa academico por ID
-const getAcademicProgramID = async ({ pracNombre, pracCodigo }) => {
+const createdAcademicProgramServices = async ({ pracNombre, pracCodigo }) => {
 	// dispatch(onChecking());
 	//TODO:Creación de thunks
 	try {
@@ -13,7 +13,7 @@ const getAcademicProgramID = async ({ pracNombre, pracCodigo }) => {
 };
 
 //Conseguir todos los programas academicos
-const getAllAcademicProgram = async () => {
+const getAllAcademicProgramServices = async () => {
 	try {
 		const { data } = await planDeMejoramientoApi.get('/academic_program');
 		return data;
@@ -22,7 +22,7 @@ const getAllAcademicProgram = async () => {
 	}
 };
 
-const updateAcademicProgram = async (pracId, { pracNombre, pracCodigo }) => {
+const updateAcademicProgramServices = async (pracId, { pracNombre, pracCodigo }) => {
 	try {
 		const { data } = await planDeMejoramientoApi.put(`/academic_program/${pracId}`, { pracNombre, pracCodigo });
 		return data;
@@ -31,4 +31,15 @@ const updateAcademicProgram = async (pracId, { pracNombre, pracCodigo }) => {
 	}
 };
 
-export { getAcademicProgramID, getAllAcademicProgram, updateAcademicProgram };
+// TODO: Crear un servicio para eliminar un programa académico
+const deleteAcademicProgramServices = async (pracId) => {
+	try {
+		const { data } = await planDeMejoramientoApi.delete(`/academic_program/${pracId}`);
+		console.log(data)
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { createdAcademicProgramServices, getAllAcademicProgramServices, updateAcademicProgramServices, deleteAcademicProgramServices };
