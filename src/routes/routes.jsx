@@ -16,6 +16,8 @@ const router = createBrowserRouter([
 		path:'/programa-academico',
 		element: <AcademyProgram/>
 	}
-]);
+], {
+	basename: '/PlanMejoramiento',
+  });	
 
 export default router;
