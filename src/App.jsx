@@ -6,7 +6,7 @@ const id_client = import.meta.env.VITE_ID_CLIENT_GOOGLE;
 function App() {
 	return (
 		<GoogleOAuthProvider clientId={id_client}>
-			<RouterProvider router={router} />
+			<RouterProvider router={router}  />
 		</GoogleOAuthProvider>
 	);
 }
