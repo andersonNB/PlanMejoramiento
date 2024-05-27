@@ -1,7 +1,6 @@
 {
   "name": "frontplanmejoramiento",
   "private": true,
-  "homepage":"https://andersonnb.github.io/PlanMejoramiento/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
