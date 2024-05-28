@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, Form, Input, Button } from 'antd';
+import { Row, Col, Form, Input, Button, Select } from 'antd';
 import { GoogleLogin } from '@react-oauth/google';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import useSelectorLogin from '../../../hooks/selectors/useSelectorLogin';
 
 const ColUser = styled(Col)`
 	background-color: salmon;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 15vh;
+	padding: 15px;
+	// height: 15vh;
 `;
 
 const InputItem = styled(Input)`
@@ -31,8 +32,9 @@ const ButtonItem = styled(Button)`
 `;
 
 const LoginPage = ({ isAdmin }) => {
-	const [payload, setPayload] = useState('');
-	const [header, setHeader] = useState('');
+
+	const {signIn} = useSelectorLogin();
+	const [form] = Form.useForm();
 	const history = useNavigate();
 
 	const responseGoogle = (response) => {
@@ -41,25 +43,31 @@ const LoginPage = ({ isAdmin }) => {
 		if (parts.length !== 3) {
 			throw new Error('Invalid token format');
 		}
-		const header = JSON.parse(atob(parts[0]));
-		const payload = JSON.parse(atob(parts[1]));
-		setPayload(payload);
-		setHeader(header);
+
+		console.log(form.getFieldsValue())
+		const {pracId,tiusId} = form.getFieldsValue();
+		
+		signIn({token: response.credential, tiusId, pracId});
+		
 		history('/dashboard');
 	};
 
-	const onSubmit = (values) => {
+	const onSubmitAdmin = (values) => {
+		console.log(values);
+	};
+
+	const onSubmitUser = (values) => {
 		console.log(values);
 	};
 
 	return (
-		<Row style={{ backgroundColor: '#202020' }} justify='center' gutter={[16, 16]}>
+		<Row style={{ backgroundColor: '#202020', width: '100%' }} justify='center' /*gutter={[16, 16]}*/>
 			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: 'gray' }}>
 				<h3 style={{ textAlign: 'center' }}> Seguimiento y Gestión Plan De Mejoramiento</h3>
 			</Col>
 			{isAdmin ? (
 				<Col xs={12} sm={12} md={24} lg={12} style={{ backgroundColor: 'gray' }}>
-					<Form name='formLogin' layout='vertical' onFinish={onSubmit}>
+					<Form name='formLogin' layout='vertical' onFinish={onSubmitAdmin}>
 						<Form.Item
 							// label='Username'
 							name='username'
@@ -123,27 +131,57 @@ const LoginPage = ({ isAdmin }) => {
 				</Col>
 			) : (
 				<ColUser xs={12} sm={12} md={24} lg={12}>
-					<GoogleLogin
-						onSuccess={(credentialResponse) => {
-							responseGoogle(credentialResponse);
-						}}
-						onError={(error) => {
-							console.log('Login Failed', error);
-						}}
-					></GoogleLogin>
+					<Form style={{ backgroundColor: 'gray', width: 500 }} onFinish={onSubmitUser} form={form}>
+						<Form.Item name='pracId'
+						rules={[
+							{
+								required: true,
+								message: 'Seleccione un programa academico!',
+							},
+						]}
+						>
+							<Select>
+								<Select.Option value='demo'>programa Demo</Select.Option>
+							</Select>
+						</Form.Item>
+						<Form.Item name='tiusId'
+						rules={[
+							{
+								required: true,
+								message: 'Seleccione un rol!',
+							},
+						]}
+						>
+							<Select>
+								<Select.Option value='demo'>Director de programa</Select.Option>
+							</Select>
+						</Form.Item>
 
-					{payload && (
-						<div>
-							<h3>Token Payload</h3>
-							<pre>{JSON.stringify(payload, null, 2)}</pre>
-						</div>
-					)}
-					{header && (
-						<div>
-							<h3>Token Header</h3>
-							<pre>{JSON.stringify(header, null, 2)}</pre>
-						</div>
-					)}
+						<Form.Item
+							// label='Username'
+							name='username'
+							rules={[
+								{
+									required: true,
+									message: 'Please input your username!',
+								},
+							]}
+							style={{ backgroundColor: 'red' }}
+							wrapperCol={{
+								md: { span: 12, offset: 6 },
+								lg: { span: 12, offset: 6 },
+							}}
+						>
+							<GoogleLogin
+								onSuccess={(credentialResponse) => {
+									responseGoogle(credentialResponse);
+								}}
+								onError={(error) => {
+									console.log('Login Failed', error);
+								}}
+							></GoogleLogin>
+						</Form.Item>
+					</Form>
 				</ColUser>
 			)}
 		</Row>
