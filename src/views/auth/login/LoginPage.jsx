@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Select } from 'antd';
 import { GoogleLogin } from '@react-oauth/google';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import useSelectorLogin from '../../../hooks/selectors/useSelectorLogin';
+import AuthContext from '../../../context/auth/AuthContext';
 
 const ColUser = styled(Col)`
 	background-color: salmon;
@@ -35,19 +37,24 @@ const LoginPage = ({ isAdmin }) => {
 
 	const {signIn} = useSelectorLogin();
 	const [form] = Form.useForm();
+	const {login} = useContext(AuthContext);
+
+	// console.log('login',login)
 	const history = useNavigate();
 
 	const responseGoogle = (response) => {
-		console.log(response);
+		// console.log(response);
 		const parts = response.credential.split('.');
 		if (parts.length !== 3) {
 			throw new Error('Invalid token format');
 		}
 
-		console.log(form.getFieldsValue())
+		// console.log(form.getFieldsValue())
 		const {pracId,tiusId} = form.getFieldsValue();
 		
 		signIn({token: response.credential, tiusId, pracId});
+		console.log('pase por aca despues del signIn')
+		login();
 		
 		history('/dashboard');
 	};
@@ -140,7 +147,7 @@ const LoginPage = ({ isAdmin }) => {
 							},
 						]}
 						>
-							<Select>
+							<Select placeholder='Programa academico'>
 								<Select.Option value='demo'>programa Demo</Select.Option>
 							</Select>
 						</Form.Item>
@@ -152,7 +159,7 @@ const LoginPage = ({ isAdmin }) => {
 							},
 						]}
 						>
-							<Select>
+							<Select placeholder='Seleccione un rol'>
 								<Select.Option value='demo'>Director de programa</Select.Option>
 							</Select>
 						</Form.Item>

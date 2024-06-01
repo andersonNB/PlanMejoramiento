@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, Typography, theme } from 'antd';
 import ContentHomePage from '../ContentHome/ContentHomePage';
 import router from '../../routes/routes';
+import AuthContext from '../../context/auth/AuthContext';
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon = <FileOutlined />, children, path) {
@@ -28,6 +30,21 @@ const items = [
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
+	const { logout } = useContext(AuthContext);
+
+	const navigate = useNavigate();
+
+	// useEffect(() => {
+	// 	window.history.pushState(null, document.title, window.location.href);
+	// 	window.addEventListener('popstate', (e) => {
+	// 		window.history.pushState(null, document.title, window.location.href);
+	// 		navigate('/dashboard');
+	// 	});
+
+	// 	return () => {
+	// 		window.removeEventListener('popstate', () => {});
+	// 	};
+	// }, [navigate]);
 
 	const {
 		token: { colorBgContainer, borderRadiusLG },
@@ -38,8 +55,10 @@ const HomePage = () => {
 		setItemRoutes(e?.item);
 	};
 
-  
-  console.log(router.routes.filter(child => child.path === itemRoutes?.props.path))
+	const onLogout = () => {
+		logout();
+		navigate('/', { replace: true });
+	};
 
 	return (
 		<Layout
@@ -57,7 +76,15 @@ const HomePage = () => {
 						padding: 0,
 						background: '#DD4B39',
 					}}
-				/>
+				>
+					<Typography
+						onClick={onLogout}
+						style={{ textAlign: 'right', paddingTop: 10, paddingRight: 10, color: 'white', cursor: 'pointer'}}
+					>
+						{' '}
+						<PoweroffOutlined /> Cerrar Sesión
+					</Typography>
+				</Header>
 				<Content
 					style={{
 						height: '100vh',
@@ -80,7 +107,8 @@ const HomePage = () => {
 					>
 						<ContentHomePage>
 							{router.routes.length > 0
-								? router.routes.filter(child => child.path === itemRoutes?.props.path)[0]?.element || 'No hay contenido'
+								? router.routes.filter((child) => child.path === itemRoutes?.props.path)[0]?.element ||
+								  'No hay contenido'
 								: 'No hay contenido'}
 						</ContentHomePage>
 					</div>
