@@ -1,4 +1,4 @@
-import planDeMejoramientoApi from '../wrappers/programAcademicWrapper';
+import planDeMejoramientoApi from '../wrappers/planDeMejoramiento';
 
 
 
@@ -9,6 +9,9 @@ const singIn = async ({token, tiusId,pracId}) => {
         return data;
     } catch (error) {
         console.log(error);
+        const { response } = error;
+        
+        if (response?.status === 400) return alert(response?.data?.error);
     }
 };
 

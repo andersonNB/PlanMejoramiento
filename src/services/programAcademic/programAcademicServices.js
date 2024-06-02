@@ -1,4 +1,4 @@
-import planDeMejoramientoApi from '../wrappers/programAcademicWrapper';
+import planDeMejoramientoApi from '../wrappers/planDeMejoramiento';
 
 //Conseguir programa academico por ID
 const createdAcademicProgramServices = async ({ pracNombre, pracCodigo }) => {

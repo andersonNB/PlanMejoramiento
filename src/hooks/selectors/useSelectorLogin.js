@@ -8,7 +8,7 @@ const useSelectorLogin = () => {
 
     const signIn = ({token, tiusId,pracId}) => {
         // console.log({token, tiusId,pracId})
-		dispatch(tSignIn({token, tiusId,pracId}));
+		return dispatch(tSignIn({token, tiusId,pracId}));
 	};
 
 

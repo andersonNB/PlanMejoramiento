@@ -1,3 +1,4 @@
+import { CustomModal } from '../../../components/Modal/CustomModal';
 import { singIn } from '../../../services/login/loginServices';
 
 export const tSignIn = ({token, tiusId,pracId}) => async (dispatch) => {
@@ -24,7 +25,6 @@ export const tSignIn = ({token, tiusId,pracId}) => async (dispatch) => {
 		// ]);
 	} catch (e) {
 		// dispatch(setIsLogin(false));
-		// if (e.status === 404) return dispatch(setUserNoExistModal(true));
-		// ERROR_MODAL(e?.data?.msg || e?.msg || e?.data?.message || e?.message || 'Algo salio mal al autenticar el usuario');
+		if (e.error === 400) return alert('Usuario o contraseña incorrectos');
 	}
 };

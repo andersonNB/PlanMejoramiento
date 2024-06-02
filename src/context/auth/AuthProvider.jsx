@@ -24,8 +24,8 @@ const AuthProvider = ({ children }) => {
     const [authState, dispatch] = useReducer(authReducer,initialState,init)
 
 	console.log({authState})
-    const login = async ()=>{
-        const user = {id: 'id creado o del bk', name: 'usuario prueba'};
+    const login = async (user)=>{
+       
         const action = {
 			types:'login',
 			payload: user,
