@@ -30,21 +30,29 @@ const items = [
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
-	const { logout } = useContext(AuthContext);
-
+	const { logged, logout } = useContext(AuthContext);
+	console.log({logged})
 	const navigate = useNavigate();
+	
+	useEffect(() => {
+		const handleBeforeUnload = (event) => {
+			event.preventDefault();
+			event.returnValue = ''; // Chrome requires returnValue to be set
+		};
 
-	// useEffect(() => {
-	// 	window.history.pushState(null, document.title, window.location.href);
-	// 	window.addEventListener('popstate', (e) => {
-	// 		window.history.pushState(null, document.title, window.location.href);
-	// 		navigate('/dashboard');
-	// 	});
+		const handlePopState = (event) => {
+			navigate('/dashboard', { replace: true });
+		};
 
-	// 	return () => {
-	// 		window.removeEventListener('popstate', () => {});
-	// 	};
-	// }, [navigate]);
+		window.addEventListener('beforeunload', handleBeforeUnload);
+		window.history.pushState(null, document.title, window.location.href);
+		window.addEventListener('popstate', handlePopState);
+
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+			window.removeEventListener('popstate', handlePopState);
+		};
+	}, [navigate]);
 
 	const {
 		token: { colorBgContainer, borderRadiusLG },
@@ -79,7 +87,7 @@ const HomePage = () => {
 				>
 					<Typography
 						onClick={onLogout}
-						style={{ textAlign: 'right', paddingTop: 10, paddingRight: 10, color: 'white', cursor: 'pointer'}}
+						style={{ textAlign: 'right', paddingTop: 10, paddingRight: 10, color: 'white', cursor: 'pointer' }}
 					>
 						{' '}
 						<PoweroffOutlined /> Cerrar Sesión

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Select } from 'antd';
 import { GoogleLogin } from '@react-oauth/google';
@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import useSelectorLogin from '../../../hooks/selectors/useSelectorLogin';
 import AuthContext from '../../../context/auth/AuthContext';
+import useSelectorProgramAcademic from '../../../hooks/selectors/useSelectorProgramAcademic';
+import useUser from '../../../hooks/selectors/useUser';
 
 const ColUser = styled(Col)`
 	background-color: salmon;
@@ -34,38 +36,56 @@ const ButtonItem = styled(Button)`
 `;
 
 const LoginPage = ({ isAdmin }) => {
-
-	const {signIn} = useSelectorLogin();
+	const { signIn } = useSelectorLogin();
 	const [form] = Form.useForm();
-	const {login} = useContext(AuthContext);
-
-	// console.log('login',login)
+	const { login } = useContext(AuthContext);
+	const { getAllAcademicProgram, academicPrograms } = useSelectorProgramAcademic();
+	const { getUserType } = useUser();
+	const [typeUser, setTypeUser] = useState();
 	const history = useNavigate();
 
+	useEffect(() => {
+		getAllAcademicProgram();
+
+		const fetchUserType = async () => {
+			try {
+				const res = await getUserType();
+				setTypeUser(res);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchUserType();
+	}, [academicPrograms?.length]);
+
+	// console.log({ academicPrograms, typeUser });
+
+	
+
 	const responseGoogle = (response) => {
-		// console.log(response);
+		console.log(response);
 		const parts = response.credential.split('.');
 		if (parts.length !== 3) {
 			throw new Error('Invalid token format');
 		}
-
+		const lastPath = localStorage.getItem('lastPath') || '/dashboard';
 		// console.log(form.getFieldsValue())
-		const {pracId,tiusId} = form.getFieldsValue();
-		
-		signIn({token: response.credential, tiusId, pracId});
-		console.log('pase por aca despues del signIn')
-		login();
-		
-		history('/dashboard');
+		const { pracId, tiusId } = form.getFieldsValue();
+
+		const infoUser = signIn({ token: response.credential, tiusId, pracId });
+		console.log(infoUser);
+		login(infoUser);
+
+		history(lastPath, {
+			replace: true,
+		});
 	};
 
 	const onSubmitAdmin = (values) => {
 		console.log(values);
 	};
 
-	const onSubmitUser = (values) => {
-		console.log(values);
-	};
+
 
 	return (
 		<Row style={{ backgroundColor: '#202020', width: '100%' }} justify='center' /*gutter={[16, 16]}*/>
@@ -138,29 +158,45 @@ const LoginPage = ({ isAdmin }) => {
 				</Col>
 			) : (
 				<ColUser xs={12} sm={12} md={24} lg={12}>
-					<Form style={{ backgroundColor: 'gray', width: 500 }} onFinish={onSubmitUser} form={form}>
-						<Form.Item name='pracId'
-						rules={[
-							{
-								required: true,
-								message: 'Seleccione un programa academico!',
-							},
-						]}
+					<Form style={{ backgroundColor: 'gray', width: 500 }} form={form}>
+						<Form.Item
+							name='pracId'
+							rules={[
+								{
+									required: true,
+									message: 'Seleccione un programa academico!',
+								},
+							]}
 						>
 							<Select placeholder='Programa academico'>
-								<Select.Option value='demo'>programa Demo</Select.Option>
+								{academicPrograms.length > 0 &&
+									academicPrograms.map((program, index) => {
+										return (
+											<Select.Option key={index} value={program?.pracId}>
+												{program?.pracNombre}
+											</Select.Option>
+										);
+									})}
 							</Select>
 						</Form.Item>
-						<Form.Item name='tiusId'
-						rules={[
-							{
-								required: true,
-								message: 'Seleccione un rol!',
-							},
-						]}
+						<Form.Item
+							name='tiusId'
+							rules={[
+								{
+									required: true,
+									message: 'Seleccione un rol!',
+								},
+							]}
 						>
 							<Select placeholder='Seleccione un rol'>
-								<Select.Option value='demo'>Director de programa</Select.Option>
+								{typeUser?.length > 0 &&
+									typeUser.map((type, index) => {
+										return (
+											<Select.Option key={index} value={type.tiusId}>											
+												{type.tiusNombre}
+											</Select.Option>
+										);
+									})}
 							</Select>
 						</Form.Item>
 
