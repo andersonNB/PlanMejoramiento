@@ -7,7 +7,7 @@ const URLS = {
 	// reg:import.meta.env.REACT_APP_SERVICE_URL_REG,
 };
 
-const URL_DEFAULT = 'http://localhost:3030/';
+const URL_DEFAULT = 'http://localhost:3000/';
 
 const programAcademicUrls = URLS[env] || URL_DEFAULT;
 
