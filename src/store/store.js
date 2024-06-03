@@ -4,6 +4,7 @@ import { programAcademic } from './slice/programAcademic/programAcademicSlice';
 import { factor } from './slice/factor/factorSlice.js';
 import { strategicAxis } from './slice/strategicAxis/strategicAxisSlice.js';
 import { strategicLine } from './slice/strategicLine/strategicLineSlice.js';
+import { process } from './slice/process/processSlice.js';
 
 export const store = configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
 		PROGRAM_ACADEMIC: programAcademic.reducer,
 		FACTOR: factor.reducer,
 		STRATEGIC_AXIS: strategicAxis.reducer,
-		STRATEGIC_LINE: strategicLine.reducer
+		STRATEGIC_LINE: strategicLine.reducer,
+		PROCESS: process.reducer,
 	}
 });

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Typography, theme } from 'antd';
+import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined , AntDesignOutlined} from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, Typography, theme, Avatar } from 'antd';
 import ContentHomePage from '../ContentHome/ContentHomePage';
 import router from '../../routes/routes';
 import AuthContext from '../../context/auth/AuthContext';
@@ -25,7 +25,7 @@ const items = [
 		getItem('Ejes Estrategicos', '5', <FileOutlined />, null, '/eje-estrategico'),
 		getItem('Lineas Estrategicas', '6', <FileOutlined />, null, '/linea-estrategica'),
 		getItem('Programas Inversión', '7', <FileOutlined />, null, '/programa-inversion'),
-		getItem('Procesos', '8', <FileOutlined />, null, '/procesos'),
+		getItem('Procesos', '8', <FileOutlined />, null, '/proceso'),
 		getItem('Tipo situacion', '9', <FileOutlined />, null, '/tipo-situacion')
 	]),
 	getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />),
@@ -35,8 +35,7 @@ const items = [
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
-	const { logged, logout } = useContext(AuthContext);
-	console.log({ logged });
+	const { logged, logout, user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -64,7 +63,6 @@ const HomePage = () => {
 	} = theme.useToken();
 
 	const onChangeItem = (e) => {
-		console.log(e);
 		setItemRoutes(e?.item);
 	};
 
@@ -83,6 +81,10 @@ const HomePage = () => {
 			<Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
 				 width={310}>
 				<div className="demo-logo-vertical" />
+{/*				<Avatar
+					size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+					icon={<AntDesignOutlined />}
+				/>*/}
 				<Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items}
 					onSelect={onChangeItem} />
 			</Sider>

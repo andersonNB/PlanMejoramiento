@@ -5,6 +5,7 @@ import { AcademyProgram } from '../components/AcademyProgram/AcademyProgram';
 import { Factor } from '../components/Factor/Factor.jsx';
 import { StrategicAxis } from '../components/StrategicAxis/StrategicAxis.jsx';
 import { StrategicLine } from '../components/StrategicLine/StrategicLine.jsx';
+import { Process } from '../components/Process/Process.jsx';
 import PrivateRoute from './PrivateRoute';
 import AuthRoute from './AuthRoute.jsx';
 import ErrorPage from '../error-page.jsx';
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
 	{
 		path: '/linea-estrategica',
 		element: <PrivateRoute element={StrategicLine} />,
+		errorElement: <ErrorPage />
+	},
+	{
+		path: '/proceso',
+		element: <PrivateRoute element={Process} />,
 		errorElement: <ErrorPage />
 	},
 	{
