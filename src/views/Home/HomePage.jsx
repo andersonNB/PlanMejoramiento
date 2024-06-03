@@ -22,8 +22,11 @@ const items = [
 	getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
 		getItem('Programa Academico', '3', <FileOutlined />, null, '/programa-academico'),
 		getItem('Factor', '4', <FileOutlined />, null, '/factor'),
-		getItem('Linea Estrategica', '5'),
-		getItem('Programa Inversión', '7')
+		getItem('Ejes Estrategicos', '5', <FileOutlined />, null, '/eje-estrategico'),
+		getItem('Lineas Estrategicas', '6', <FileOutlined />, null, '/linea-estrategica'),
+		getItem('Programas Inversión', '7', <FileOutlined />, null, '/programa-inversion'),
+		getItem('Procesos', '8', <FileOutlined />, null, '/procesos'),
+		getItem('Tipo situacion', '9', <FileOutlined />, null, '/tipo-situacion')
 	]),
 	getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />),
 	getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')])

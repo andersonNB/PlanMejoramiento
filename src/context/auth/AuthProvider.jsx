@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
 
 		//con el clear limpia toda la info guardada y con el removeItem, solo el que le
 		//especifiquemos
-		localStorage.removeItem('user');
+		localStorage.clear()
 
 		dispatch(action);
 	};

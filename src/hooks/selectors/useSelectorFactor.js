@@ -18,8 +18,8 @@ const useSelectorFactor = () => {
 		getAllFactor()
 	}
 
-	const updateFactor = (pracId, { pracNombre, pracCodigo }, index) => {
-		dispatch(tUpdateFactor(pracId, { pracNombre, pracCodigo }, index));
+	const updateFactor = (factId, { factNombre, tifaId }, index) => {
+		dispatch(tUpdateFactor(pracId, { factNombre, tifaId }, index));
 	};
 
 

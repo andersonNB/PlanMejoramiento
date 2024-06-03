@@ -11,8 +11,12 @@ const PrivateRoute = ({ element: Component, ...rest }) => {
   const lastPath = pathname + search;
   localStorage.setItem('lastPath', lastPath);
 
-  // console.log({logged})
-  return logged ? <Component {...rest} /> : <Navigate to="/" replace  />;
+  return logged ? (
+        <Component {...rest} />
+  ) : (
+        <Navigate to="/login" replace={true} />
+  );
+
 };
 
 export default PrivateRoute;
