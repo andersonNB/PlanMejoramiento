@@ -10,29 +10,28 @@ import useSelectorProgramAcademic from '../../../hooks/selectors/useSelectorProg
 import useUser from '../../../hooks/selectors/useUser';
 
 const ColUser = styled(Col)`
-	background-color: salmon;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 15px;
-	// height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    // height: 15vh;
 `;
 
 const InputItem = styled(Input)`
-	border: 1.5px solid #e7e7e9;
-	height: 56px;
-	width: 100%;
+    border: 1.5px solid #e7e7e9;
+    height: 56px;
+    width: 100%;
 `;
 const InputItemPassword = styled(Input.Password)`
-	border: 1.5px solid #e7e7e9;
-	height: 56px;
-	width: 100%;
+    border: 1.5px solid #e7e7e9;
+    height: 56px;
+    width: 100%;
 `;
 
 const ButtonItem = styled(Button)`
-	width: 100%;
-	border-radius: 20px;
-	height: 46px;
+    width: 100%;
+    border-radius: 20px;
+    height: 46px;
 `;
 
 const LoginPage = ({ isAdmin }) => {
@@ -60,7 +59,6 @@ const LoginPage = ({ isAdmin }) => {
 
 	// console.log({ academicPrograms, typeUser });
 
-	
 
 	const responseGoogle = (response) => {
 		console.log(response);
@@ -77,7 +75,7 @@ const LoginPage = ({ isAdmin }) => {
 		login(infoUser);
 
 		history(lastPath, {
-			replace: true,
+			replace: true
 		});
 	};
 
@@ -86,153 +84,166 @@ const LoginPage = ({ isAdmin }) => {
 	};
 
 
-
 	return (
-		<Row style={{ backgroundColor: '#202020', width: '100%' }} justify='center' /*gutter={[16, 16]}*/>
-			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: 'gray' }}>
-				<h3 style={{ textAlign: 'center' }}> Seguimiento y Gestión Plan De Mejoramiento</h3>
-			</Col>
-			{isAdmin ? (
-				<Col xs={12} sm={12} md={24} lg={12} style={{ backgroundColor: 'gray' }}>
-					<Form name='formLogin' layout='vertical' onFinish={onSubmitAdmin}>
-						<Form.Item
-							// label='Username'
-							name='username'
-							rules={[
-								{
-									required: true,
-									message: 'Please input your username!',
-								},
-							]}
-							style={{ backgroundColor: 'red' }}
-							wrapperCol={{
-								md: { span: 12, offset: 6 },
-								lg: { span: 12, offset: 6 },
-							}}
-						>
-							<InputItem placeholder='Digite su usuario' />
-						</Form.Item>
+		<Row style={{ width: '100%', paddingTop: '10%' }} justify="center" /*gutter={[16, 16]}*/>
+			<Row style={{ width: '100%' }} justify="center">
+				<Col xs={20} sm={20} md={12} lg={12}>
+					<Row style={{ backgroundColor: '#fafafa', borderRadius: '10px' }} justify="center">
+						<Col xs={20} sm={20} md={24} lg={24} style={{ justifyContent: 'center' }}>
+							<h3 style={{ textAlign: 'center', color: 'black' }}> Seguimiento y Gestión
+								Plan De
+								Mejoramiento</h3>
+						</Col>
+						<Col xs={20} sm={20} md={24} lg={24}
+						     style={{ display: 'flex', justifyContent: 'center' }}>
+							<img src="http://www.enjambre.gov.co/imagenes/logo_ufps.png" width={300} />
+						</Col>
+						{isAdmin ? (
+							<Col xs={12} sm={12} md={24} lg={12}>
+								<Form name="formLogin" layout="vertical" onFinish={onSubmitAdmin}>
+									<Form.Item
+										// label='Username'
+										name="username"
+										rules={[
+											{
+												required: true,
+												message: 'Please input your username!'
+											}
+										]}
+										wrapperCol={{
+											md: { span: 12, offset: 6 },
+											lg: { span: 12, offset: 6 }
+										}}
+									>
+										<InputItem placeholder="Digite su usuario" />
+									</Form.Item>
 
-						<Form.Item
-							// label='Password'
-							name='password'
-							style={{ backgroundColor: 'yellowgreen' }}
-							rules={[
-								{
-									required: true,
-									message: 'Please input your password!',
-								},
-							]}
-							wrapperCol={{
-								md: { span: 12, offset: 6 },
-								lg: { span: 12, offset: 6 },
-							}}
-						>
-							<InputItemPassword placeholder='Contraseña' />
-						</Form.Item>
+									<Form.Item
+										// label='Password'
+										name="password"
+										rules={[
+											{
+												required: true,
+												message: 'Please input your password!'
+											}
+										]}
+										wrapperCol={{
+											md: { span: 12, offset: 6 },
+											lg: { span: 12, offset: 6 }
+										}}
+									>
+										<InputItemPassword placeholder="Contraseña" />
+									</Form.Item>
 
-						<Form.Item
-							wrapperCol={{
-								// offset: 6,
-								// span: 12,
-								// push:12
-								md: { span: 12, offset: 6 },
-							}}
-							style={{ textAlign: 'center' }}
-						>
-							<ButtonItem type='primary' htmlType='submit'>
-								Iniciar Sesión
-							</ButtonItem>
-						</Form.Item>
-						<Form.Item
-							wrapperCol={{
-								md: { span: 12, offset: 6 },
-							}}
-							style={{ textAlign: 'center' }}
-						>
-							<a href='#' style={{ textDecoration: 'underline' }}>
-								Olvide mi contraseña
-							</a>
-						</Form.Item>
-					</Form>
+									<Form.Item
+										wrapperCol={{
+											// offset: 6,
+											// span: 12,
+											// push:12
+											md: { span: 12, offset: 6 }
+										}}
+										style={{ textAlign: 'center' }}
+									>
+										<ButtonItem type="primary" htmlType="submit">
+											Iniciar Sesión
+										</ButtonItem>
+									</Form.Item>
+									<Form.Item
+										wrapperCol={{
+											md: { span: 12, offset: 6 }
+										}}
+										style={{ textAlign: 'center' }}
+									>
+										<a href="#" style={{ textDecoration: 'underline' }}>
+											Olvide mi contraseña
+										</a>
+									</Form.Item>
+								</Form>
+							</Col>
+						) : (
+							<ColUser xs={22} sm={22} md={24} lg={22}>
+								<Form style={{
+									width: 500
+								}}
+									form={form}>
+									<Form.Item
+										name="pracId"
+										rules={[
+											{
+												required: true,
+												message: 'Seleccione un programa academico!'
+											}
+										]}
+									>
+										<Select placeholder="Programa academico">
+											{academicPrograms.length > 0 &&
+												academicPrograms.map((program, index) => {
+													return (
+														<Select.Option key={index}
+																   value={program?.pracId}>
+															{program?.pracNombre}
+														</Select.Option>
+													);
+												})}
+										</Select>
+									</Form.Item>
+									<Form.Item
+										name="tiusId"
+										rules={[
+											{
+												required: true,
+												message: 'Seleccione un rol!'
+											}
+										]}
+									>
+										<Select placeholder="Seleccione un rol">
+											{typeUser?.length > 0 &&
+												typeUser.map((type, index) => {
+													return (
+														<Select.Option key={index}
+																   value={type.tiusId}>
+															{type.tiusNombre}
+														</Select.Option>
+													);
+												})}
+										</Select>
+									</Form.Item>
+
+									<Form.Item
+										// label='Username'
+										name="username"
+										rules={[
+											{
+												required: true,
+												message: 'Please input your username!'
+											}
+										]}
+										wrapperCol={{
+											md: { span: 12, offset: 6 },
+											lg: { span: 12, offset: 6 }
+										}}
+									>
+										<GoogleLogin
+											onSuccess={(credentialResponse) => {
+												responseGoogle(credentialResponse);
+											}}
+											onError={(error) => {
+												console.log('Login Failed', error);
+											}}
+										></GoogleLogin>
+									</Form.Item>
+								</Form>
+							</ColUser>
+						)}
+					</Row>
 				</Col>
-			) : (
-				<ColUser xs={12} sm={12} md={24} lg={12}>
-					<Form style={{ backgroundColor: 'gray', width: 500 }} form={form}>
-						<Form.Item
-							name='pracId'
-							rules={[
-								{
-									required: true,
-									message: 'Seleccione un programa academico!',
-								},
-							]}
-						>
-							<Select placeholder='Programa academico'>
-								{academicPrograms.length > 0 &&
-									academicPrograms.map((program, index) => {
-										return (
-											<Select.Option key={index} value={program?.pracId}>
-												{program?.pracNombre}
-											</Select.Option>
-										);
-									})}
-							</Select>
-						</Form.Item>
-						<Form.Item
-							name='tiusId'
-							rules={[
-								{
-									required: true,
-									message: 'Seleccione un rol!',
-								},
-							]}
-						>
-							<Select placeholder='Seleccione un rol'>
-								{typeUser?.length > 0 &&
-									typeUser.map((type, index) => {
-										return (
-											<Select.Option key={index} value={type.tiusId}>											
-												{type.tiusNombre}
-											</Select.Option>
-										);
-									})}
-							</Select>
-						</Form.Item>
-
-						<Form.Item
-							// label='Username'
-							name='username'
-							rules={[
-								{
-									required: true,
-									message: 'Please input your username!',
-								},
-							]}
-							style={{ backgroundColor: 'red' }}
-							wrapperCol={{
-								md: { span: 12, offset: 6 },
-								lg: { span: 12, offset: 6 },
-							}}
-						>
-							<GoogleLogin
-								onSuccess={(credentialResponse) => {
-									responseGoogle(credentialResponse);
-								}}
-								onError={(error) => {
-									console.log('Login Failed', error);
-								}}
-							></GoogleLogin>
-						</Form.Item>
-					</Form>
-				</ColUser>
-			)}
+			</Row>
 		</Row>
 	);
 };
 
 LoginPage.propTypes = {
-	isAdmin: PropTypes.bool.isRequired,
+	isAdmin: PropTypes.bool.isRequired
 };
 
 export default LoginPage;

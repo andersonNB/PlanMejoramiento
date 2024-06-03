@@ -21,11 +21,11 @@ export const StrategicAxis = () => {
 	};
 
 	return (
-		<Row style={{ backgroundColor: 'rgb(196 226 196)' }} justify="center" gutter={[16, 16]}>
-			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: 'gray' }}>
+		<Row justify="center" style={{backgroundColor:"#fafafa", borderRadius:"10px"}} gutter={[16, 16]}>
+			<Col xs={12} sm={12} md={24} lg={24}>
 				<h3 style={{ textAlign: 'center' }}> Seguimiento y Gestión Plan De Mejoramiento</h3>
 			</Col>
-			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: 'salmon' }}>
+			<Col xs={12} sm={12} md={24} lg={24} >
 				<Form
 					form={form}
 					name="formLogin"
@@ -48,7 +48,6 @@ export const StrategicAxis = () => {
 								message: 'Digite un nombre para el eje strategico'
 							}
 						]}
-						style={{ backgroundColor: 'red' }}
 						// wrapperCol={{
 						// 	md: { span: 12, offset: 6 },
 						// 	lg: { span: 12, offset: 6 },
@@ -69,7 +68,7 @@ export const StrategicAxis = () => {
 					</Form.Item>
 				</Form>
 			</Col>
-			<Col xs={12} sm={12} md={24} lg={24} style={{ backgroundColor: '#7979fd' }}>
+			<Col xs={12} sm={12} md={24} lg={24} >
 				<TableDinamic datasource={strategicAxes} />
 			</Col>
 		</Row>
