@@ -1,7 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined , AntDesignOutlined} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Typography, theme, Avatar } from 'antd';
+import {
+	DesktopOutlined,
+	FileOutlined,
+	PieChartOutlined,
+	PoweroffOutlined,
+	TeamOutlined,
+	AntDesignOutlined
+} from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, Typography, theme, Avatar, Row } from 'antd';
 import ContentHomePage from '../ContentHome/ContentHomePage';
 import router from '../../routes/routes';
 import AuthContext from '../../context/auth/AuthContext';
@@ -38,6 +45,8 @@ const HomePage = () => {
 	const { logged, logout, user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
+
+	console.log('|||| desde home ', user);
 	useEffect(() => {
 		const handleBeforeUnload = (event) => {
 			event.preventDefault();
@@ -81,10 +90,16 @@ const HomePage = () => {
 			<Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
 				 width={310}>
 				<div className="demo-logo-vertical" />
-{/*				<Avatar
-					size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-					icon={<AntDesignOutlined />}
-				/>*/}
+				<Row style={{ width: '100%' }} justify="center">
+					<Avatar
+						size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+						src={user.usuaFoto}
+					/>
+				</Row>
+				<Row style={{ width: '100%' }} justify="center">
+					<h4 style={{ color: 'black' }}>{user.usuaNombre}</h4>
+				</Row>
+
 				<Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items}
 					onSelect={onChangeItem} />
 			</Sider>
