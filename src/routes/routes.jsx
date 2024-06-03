@@ -4,6 +4,7 @@ import LoginPage from '../views/auth/login/LoginPage';
 import { AcademyProgram } from '../components/AcademyProgram/AcademyProgram';
 import { Factor } from '../components/Factor/Factor.jsx';
 import { StrategicAxis } from '../components/StrategicAxis/StrategicAxis.jsx';
+import { StrategicLine } from '../components/StrategicLine/StrategicLine.jsx';
 import PrivateRoute from './PrivateRoute';
 import AuthRoute from './AuthRoute.jsx';
 import ErrorPage from '../error-page.jsx';
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <AuthRoute element={LoginPage} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/dashboard',
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
 	{
 		path: '/eje-estrategico',
 		element: <PrivateRoute element={StrategicAxis} />,
+		errorElement: <ErrorPage />
+	},
+	{
+		path: '/linea-estrategica',
+		element: <PrivateRoute element={StrategicLine} />,
 		errorElement: <ErrorPage />
 	},
 	{

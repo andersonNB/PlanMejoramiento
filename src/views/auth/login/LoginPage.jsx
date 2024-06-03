@@ -83,7 +83,6 @@ const LoginPage = ({ isAdmin }) => {
 		console.log(values);
 	};
 
-
 	return (
 		<Row style={{ width: '100%', paddingTop: '10%' }} justify="center" /*gutter={[16, 16]}*/>
 			<Row style={{ width: '100%' }} justify="center">
@@ -95,7 +94,7 @@ const LoginPage = ({ isAdmin }) => {
 								Mejoramiento</h3>
 						</Col>
 						<Col xs={20} sm={20} md={24} lg={24}
-						     style={{ display: 'flex', justifyContent: 'center' }}>
+						     style={{ display: 'flex', justifyContent: 'center', marginBottom: '5%' }}>
 							<img src="http://www.enjambre.gov.co/imagenes/logo_ufps.png" width={300} />
 						</Col>
 						{isAdmin ? (
