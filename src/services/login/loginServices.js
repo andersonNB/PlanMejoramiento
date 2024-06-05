@@ -10,7 +10,7 @@ const singIn = async ({token, tiusId,pracId}) => {
     } catch (error) {
         console.log(error);
         const { response } = error;
-        
+        //de prueba
         if (response?.status === 400) return alert(response?.data?.error);
     }
 };

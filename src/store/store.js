@@ -5,6 +5,7 @@ import { factor } from './slice/factor/factorSlice.js';
 import { strategicAxis } from './slice/strategicAxis/strategicAxisSlice.js';
 import { strategicLine } from './slice/strategicLine/strategicLineSlice.js';
 import { process } from './slice/process/processSlice.js';
+import { InvestmentProgram } from './slice/InvestmentProgram/InvestmentProgramSlice.js';
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
 		FACTOR: factor.reducer,
 		STRATEGIC_AXIS: strategicAxis.reducer,
 		STRATEGIC_LINE: strategicLine.reducer,
+		INVESTMENT_PROGRAM: InvestmentProgram.reducer,
 		PROCESS: process.reducer,
 	}
 });

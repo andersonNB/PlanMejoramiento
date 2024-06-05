@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
 import PropTypes from 'prop-types';
-import useSelectorStrategicLine from '../../hooks/selectors/useSelectorStrategicLine.js';
-import { EditOutlined } from '@ant-design/icons';
 
 const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
 	const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;

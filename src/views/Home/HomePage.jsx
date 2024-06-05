@@ -1,13 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-	DesktopOutlined,
-	FileOutlined,
-	PieChartOutlined,
-	PoweroffOutlined,
-	TeamOutlined,
-	AntDesignOutlined
-} from '@ant-design/icons';
+import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined, AntDesignOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, Typography, theme, Avatar, Row } from 'antd';
 import ContentHomePage from '../ContentHome/ContentHomePage';
 import router from '../../routes/routes';
@@ -21,7 +14,7 @@ function getItem(label, key, icon = <FileOutlined />, children, path) {
 		icon,
 		children,
 		label,
-		path
+		path,
 	};
 }
 
@@ -33,10 +26,10 @@ const items = [
 		getItem('Lineas Estrategicas', '6', <FileOutlined />, null, '/linea-estrategica'),
 		getItem('Programas Inversión', '7', <FileOutlined />, null, '/programa-inversion'),
 		getItem('Procesos', '8', <FileOutlined />, null, '/proceso'),
-		getItem('Tipo situacion', '9', <FileOutlined />, null, '/tipo-situacion')
+		getItem('Tipo situacion', '9', <FileOutlined />, null, '/tipo-situacion'),
 	]),
 	getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />),
-	getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')])
+	getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
 	// getItem('Files', '9', <FileOutlined />),
 ];
 const HomePage = () => {
@@ -44,7 +37,6 @@ const HomePage = () => {
 	const [itemRoutes, setItemRoutes] = useState();
 	const { logged, logout, user } = useContext(AuthContext);
 	const navigate = useNavigate();
-
 
 	console.log('|||| desde home ', user);
 	useEffect(() => {
@@ -68,7 +60,7 @@ const HomePage = () => {
 	}, [navigate]);
 
 	const {
-		token: { colorBgContainer, borderRadiusLG }
+		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken();
 
 	const onChangeItem = (e) => {
@@ -84,30 +76,25 @@ const HomePage = () => {
 	return (
 		<Layout
 			style={{
-				minHeight: '100vh'
+				minHeight: '100vh',
 			}}
 		>
-			<Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
-				 width={310}>
-				<div className="demo-logo-vertical" />
-				<Row style={{ width: '100%' }} justify="center">
-					<Avatar
-						size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
-						src={user.usuaFoto}
-					/>
+			<Sider theme='light' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} width={310}>
+				<div className='demo-logo-vertical' />
+				<Row style={{ width: '100%' }} justify='center'>
+					<Avatar size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }} src={user.usuaFoto} />
 				</Row>
-				<Row style={{ width: '100%' }} justify="center">
+				<Row style={{ width: '100%' }} justify='center'>
 					<h4 style={{ color: 'black' }}>{user.usuaNombre}</h4>
 				</Row>
 
-				<Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items}
-					onSelect={onChangeItem} />
+				<Menu theme='light' defaultSelectedKeys={['1']} mode='inline' items={items} onSelect={onChangeItem} />
 			</Sider>
 			<Layout style={{ backgroundColor: 'gray' }}>
 				<Header
 					style={{
 						padding: 0,
-						background: '#DD4B39'
+						background: '#DD4B39',
 					}}
 				>
 					<Typography
@@ -117,7 +104,7 @@ const HomePage = () => {
 							paddingTop: 10,
 							paddingRight: 10,
 							color: 'white',
-							cursor: 'pointer'
+							cursor: 'pointer',
 						}}
 					>
 						{' '}
@@ -126,35 +113,29 @@ const HomePage = () => {
 				</Header>
 				<Content
 					style={{
-						height: '100vh'
+						height: '100vh',
 					}}
 				>
-					<Breadcrumb
-						style={{
-							margin: '16px 0'
-						}}
-						items={[{ title: 'User' }, { title: 'Bill' }, { title: 'Bill' }]}
-					/>
 					<div
 						style={{
 							padding: 24,
 							minHeight: '100%',
 							background: colorBgContainer,
 							borderRadius: borderRadiusLG,
-							color: 'red'
+							color: 'red',
 						}}
 					>
 						<ContentHomePage>
 							{router.routes.length > 0
 								? router.routes.filter((child) => child.path === itemRoutes?.props.path)[0]?.element ||
-								'No hay contenido'
+								  'No hay contenido'
 								: 'No hay contenido'}
 						</ContentHomePage>
 					</div>
 				</Content>
 				<Footer
 					style={{
-						textAlign: 'center'
+						textAlign: 'center',
 					}}
 				>
 					Ant Design ©{new Date().getFullYear()} Created by UFPS

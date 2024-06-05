@@ -19,7 +19,7 @@ const useSelectorFactor = () => {
 	}
 
 	const updateFactor = (factId, { factNombre, tifaId }, index) => {
-		dispatch(tUpdateFactor(pracId, { factNombre, tifaId }, index));
+		dispatch(tUpdateFactor(factId, { factNombre, tifaId }, index));
 	};
 
 

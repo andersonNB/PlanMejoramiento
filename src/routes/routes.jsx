@@ -6,6 +6,7 @@ import { Factor } from '../components/Factor/Factor.jsx';
 import { StrategicAxis } from '../components/StrategicAxis/StrategicAxis.jsx';
 import { StrategicLine } from '../components/StrategicLine/StrategicLine.jsx';
 import { Process } from '../components/Process/Process.jsx';
+import { InvestmentProgram } from '../components/InvestmentProgram/InvestmentProgram.jsx';
 import PrivateRoute from './PrivateRoute';
 import AuthRoute from './AuthRoute.jsx';
 import ErrorPage from '../error-page.jsx';
@@ -14,7 +15,12 @@ import ErrorPage from '../error-page.jsx';
 const router = createBrowserRouter([
 	{
 		path: '/login',
-		element: <AuthRoute element={LoginPage} />,
+		element: <AuthRoute element={LoginPage} isAdmin={false} />,
+		errorElement: <ErrorPage />
+	},
+	{
+		path: '/login-admin',
+		element: <AuthRoute element={LoginPage} isAdmin={true} />,
 		errorElement: <ErrorPage />
 	},
 	{
@@ -45,6 +51,11 @@ const router = createBrowserRouter([
 	{
 		path: '/proceso',
 		element: <PrivateRoute element={Process} />,
+		errorElement: <ErrorPage />
+	},
+	{
+		path:'/programa-inversion',
+		element: <PrivateRoute element={InvestmentProgram} />,
 		errorElement: <ErrorPage />
 	},
 	{
