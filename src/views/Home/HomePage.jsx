@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Typography, theme } from 'antd';
+import { DesktopOutlined, FileOutlined, PieChartOutlined, PoweroffOutlined, TeamOutlined, AntDesignOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, Typography, theme, Avatar, Row } from 'antd';
 import ContentHomePage from '../ContentHome/ContentHomePage';
 import router from '../../routes/routes';
 import AuthContext from '../../context/auth/AuthContext';
 
 const { Header, Content, Footer, Sider } = Layout;
+
 function getItem(label, key, icon = <FileOutlined />, children, path) {
 	return {
 		key,
@@ -16,12 +17,17 @@ function getItem(label, key, icon = <FileOutlined />, children, path) {
 		path,
 	};
 }
+
+//TODO: este menu debe venir de bk
 const items = [
 	getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
 		getItem('Programa Academico', '3', <FileOutlined />, null, '/programa-academico'),
-		getItem('Factor', '4'),
-		getItem('Linea Estrategica', '5'),
-		getItem('Programa Inversión', '7'),
+		getItem('Factor', '4', <FileOutlined />, null, '/factor'),
+		getItem('Ejes Estrategicos', '5', <FileOutlined />, null, '/eje-estrategico'),
+		getItem('Lineas Estrategicas', '6', <FileOutlined />, null, '/linea-estrategica'),
+		getItem('Programas Inversión', '7', <FileOutlined />, null, '/programa-inversion'),
+		getItem('Procesos', '8', <FileOutlined />, null, '/proceso'),
+		getItem('Tipo situacion', '9', <FileOutlined />, null, '/tipo-situacion'),
 	]),
 	getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />),
 	getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
@@ -30,10 +36,10 @@ const items = [
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
-	const { logged, logout } = useContext(AuthContext);
-	console.log({logged})
+	const { logged, logout, user } = useContext(AuthContext);
 	const navigate = useNavigate();
-	
+
+	console.log('|||| desde home ', user);
 	useEffect(() => {
 		const handleBeforeUnload = (event) => {
 			event.preventDefault();
@@ -59,11 +65,11 @@ const HomePage = () => {
 	} = theme.useToken();
 
 	const onChangeItem = (e) => {
-		console.log(e);
 		setItemRoutes(e?.item);
 	};
 
 	const onLogout = () => {
+		localStorage.clear();
 		logout();
 		navigate('/', { replace: true });
 	};
@@ -76,6 +82,13 @@ const HomePage = () => {
 		>
 			<Sider theme='light' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} width={310}>
 				<div className='demo-logo-vertical' />
+				<Row style={{ width: '100%' }} justify='center'>
+					<Avatar size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }} src={user.usuaFoto} />
+				</Row>
+				<Row style={{ width: '100%' }} justify='center'>
+					<h4 style={{ color: 'black' }}>{user.usuaNombre}</h4>
+				</Row>
+
 				<Menu theme='light' defaultSelectedKeys={['1']} mode='inline' items={items} onSelect={onChangeItem} />
 			</Sider>
 			<Layout style={{ backgroundColor: 'gray' }}>
@@ -87,7 +100,13 @@ const HomePage = () => {
 				>
 					<Typography
 						onClick={onLogout}
-						style={{ textAlign: 'right', paddingTop: 10, paddingRight: 10, color: 'white', cursor: 'pointer' }}
+						style={{
+							textAlign: 'right',
+							paddingTop: 10,
+							paddingRight: 10,
+							color: 'white',
+							cursor: 'pointer',
+						}}
 					>
 						{' '}
 						<PoweroffOutlined /> Cerrar Sesión
@@ -98,12 +117,6 @@ const HomePage = () => {
 						height: '100vh',
 					}}
 				>
-					<Breadcrumb
-						style={{
-							margin: '16px 0',
-						}}
-						items={[{ title: 'User' }, { title: 'Bill' }, { title: 'Bill' }]}
-					/>
 					<div
 						style={{
 							padding: 24,

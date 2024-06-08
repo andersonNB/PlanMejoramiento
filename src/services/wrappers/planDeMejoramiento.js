@@ -10,7 +10,7 @@ planDeMejoramientoApi.interceptors.request.use(config => {
   //Con este interceptor cada petición que hagamos tendra el token
   config.headers = {
     ...config.headers,
-    Authorization: 'Bearer ' + localStorage.getItem('token')
+    Authorization: localStorage.getItem('token')
   };
 
   return config;

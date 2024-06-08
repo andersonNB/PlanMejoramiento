@@ -1,11 +1,17 @@
 import { CustomModal } from '../../../components/Modal/CustomModal';
 import { singIn } from '../../../services/login/loginServices';
 
-export const tSignIn = ({token, tiusId,pracId}) => async (dispatch) => {
+export const tSignIn = ({ token, tiusId, pracId }) => async (dispatch) => {
 	try {
-		const res =  await singIn({token, tiusId,pracId});
-		console.log(res)
+		const res = await singIn({ token, tiusId, pracId });
+		console.log(res);
+		const serializer = {
+			serialize: JSON.stringify,
+			deserialize: JSON.parse
+		};
 
+		localStorage.setItem('token', res.token);
+		localStorage.setItem('user', serializer.serialize(res.usuario));
 		// await saveLocalStorage(
 		// 	data.access_token,
 		// 	data.expires_on,

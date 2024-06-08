@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
 import PropTypes from 'prop-types';
-import useSelectorProgramAcademic from '../../hooks/selectors/useSelectorProgramAcademic';
+import useSelectorFactor from '../../hooks/selectors/useSelectorFactor.js';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
@@ -33,8 +33,8 @@ const EditableCell = ({ editing, dataIndex, title, inputType, record, index, chi
 const TableDinamic = React.memo(({ datasource = [] }) => {
 	const [form] = Form.useForm();
 	const [editingKey, setEditingKey] = useState('');
-	const isEditing = (record) => record.pracId === editingKey;
-	const { updateAcademicProgram, deleteAcademicProgram } = useSelectorProgramAcademic();
+	const isEditing = (record) => record.factId === editingKey;
+	const { updateFactor } = useSelectorFactor();
 
 	const edit = (record) => {
 		console.log('MEtodo Update', record)
@@ -43,14 +43,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 		form.setFieldsValue({
 			...record
 		});
-		setEditingKey(record.pracId);
-	};
-
-	const deleteProgram = (record) => {
-		//TODO: Llamar al servicio de eliminar
-		//TODO: Actualizar el estado de la tabla
-		const { pracId } = record;
-		return deleteAcademicProgram({ pracId });
+		setEditingKey(record.factId);
 	};
 
 	const cancel = () => {
@@ -62,7 +55,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 		try {
 			const row = await form.validateFields();
 			const newData = [...datasource];
-			const index = newData.findIndex((item) => key === item?.pracId);
+			const index = newData.findIndex((item) => key === item?.factId);
 			console.log(index);
 			if (index > -1) {
 				const item = newData[index];
@@ -71,11 +64,11 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 					...row
 				});
 				console.log('metodo save ', newData);
-				updateAcademicProgram(
-					newData[index]?.pracId,
+				updateFactor(
+					newData[index]?.factId,
 					{
-						pracNombre: newData[index].pracNombre,
-						pracCodigo: newData[index].pracCodigo
+						factNombre: newData[index].factNombre,
+						tifaId: newData[index].tifaId
 					},
 					index
 				);
@@ -94,14 +87,14 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 
 	const columns = [
 		{
-			title: 'Nombre Programa',
-			dataIndex: 'pracNombre',
+			title: 'Nombre Factor',
+			dataIndex: 'factNombre',
 			width: '25%',
 			editable: true
 		},
 		{
-			title: 'Codigo',
-			dataIndex: 'pracCodigo',
+			title: 'Tipo Factor',
+			dataIndex: ['TipoFactor', 'tifaNombre'],
 			width: '15%',
 			editable: true
 		},
@@ -113,7 +106,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 				return editable ? (
 					<span>
 						<Typography.Link
-							onClick={() => save(record.pracId)}
+							onClick={() => save(record.factId)}
 							style={{
 								marginRight: 8
 							}}
@@ -130,9 +123,6 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 								     style={{ margin: 15 }}>
 							<EditOutlined /> Editar
 						</Typography.Link>
-						<Typography.Link disabled={editingKey !== ''} onClick={() => deleteProgram(record)}>
-							<DeleteOutlined /> Eliminar
-						</Typography.Link>
 					</>
 				);
 			}
@@ -146,11 +136,11 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 			...col,
 			onCell: (record, rowIndex) => ({
 				record,
-				inputType: col.dataIndex === 'pracCodigo' ? 'number' : 'text',
+				inputType: 'text',
 				dataIndex: col.dataIndex,
 				title: col.title,
 				editing: isEditing(record),
-				key: `${record.pracId}-${col.dataIndex}`
+				key: `${record.factId}-${col.dataIndex}`
 			})
 		};
 	});
@@ -166,7 +156,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 				bordered
 				dataSource={datasource.map(item => ({
 					...item,
-					key: item.pracId
+					key: item.factId
 				}))} // Clave única para cada fila
 				columns={mergedColumns}
 				rowClassName="editable-row"

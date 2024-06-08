@@ -1,9 +1,10 @@
-import { useReducer } from 'react'
-import { authReducer } from './authReducer'
+import { useReducer } from 'react';
+import { authReducer } from './authReducer';
 import AuthContext from './AuthContext';
 
 const initialState = {
 	logged: false,
+	user: null
 };
 
 const init = () => {
@@ -15,48 +16,48 @@ const init = () => {
 
 	return {
 		logged: !!user,
-		user: user,
+		user: user
 	};
 };
 
 const AuthProvider = ({ children }) => {
 
-    const [authState, dispatch] = useReducer(authReducer,initialState,init)
+	const [authState, dispatch] = useReducer(authReducer, initialState, init);
 
-	console.log({authState})
-    const login = async (user)=>{
-       
-        const action = {
-			types:'login',
-			payload: user,
+	console.log({ authState });
+	const login = async (user) => {
+
+		const action = {
+			types: 'login',
+			payload: user
 		};
 
 		localStorage.setItem('user', JSON.stringify(user));
 
 		dispatch(action);
 
-    };
+	};
 
-    const logout = () => {
+	const logout = () => {
 		const action = {
 			types: 'logout',
-			payload: null,
+			payload: null
 		};
 
 		//con el clear limpia toda la info guardada y con el removeItem, solo el que le
 		//especifiquemos
-		localStorage.removeItem('user');
+		localStorage.clear();
 
 		dispatch(action);
 	};
 
 
-    return (
-        <AuthContext.Provider value={{...authState, login: login, logout: logout}} >
-            {children}
-        </AuthContext.Provider>
-    )
+	return (
+		<AuthContext.Provider value={{ ...authState, login: login, logout: logout }}>
+			{children}
+		</AuthContext.Provider>
+	);
 
-}
+};
 
 export default AuthProvider;
