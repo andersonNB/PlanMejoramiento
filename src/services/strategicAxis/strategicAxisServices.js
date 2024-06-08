@@ -5,7 +5,7 @@ const createdStrategicAxisServices = async ({ ejesNombre }) => {
 	// dispatch(onChecking());
 	//TODO:Creación de thunks
 	try {
-		const { data } = await planDeMejoramientoApi.post('/strategic_axis', { ejesNombre });
+		const { data } = await planDeMejoramientoApi.post('/strategic-axis', { ejesNombre });
 		console.log(data);
 	} catch (error) {
 		console.log(error);
@@ -15,7 +15,7 @@ const createdStrategicAxisServices = async ({ ejesNombre }) => {
 //Conseguir todos los ejes
 const getAllStrategicAxisServices = async () => {
 	try {
-		const { data } = await planDeMejoramientoApi.get('/strategic_axis');
+		const { data } = await planDeMejoramientoApi.get('/strategic-axis');
 		return data;
 	} catch (error) {
 		console.log(error);

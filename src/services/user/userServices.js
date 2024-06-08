@@ -2,7 +2,7 @@ import planDeMejoramientoApi from '../wrappers/planDeMejoramiento';
 
 const userType = async () => {
 	try {
-		const { data } = await planDeMejoramientoApi.get('/user_type');
+		const { data } = await planDeMejoramientoApi.get('/user-type');
 		return data;
 	} catch (error) {
 		console.error(error);

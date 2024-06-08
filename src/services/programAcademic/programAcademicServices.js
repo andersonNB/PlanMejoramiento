@@ -5,7 +5,7 @@ const createdAcademicProgramServices = async ({ pracNombre, pracCodigo }) => {
 	// dispatch(onChecking());
 	//TODO:Creación de thunks
 	try {
-		const { data } = await planDeMejoramientoApi.post('/academic_program', { pracNombre, pracCodigo });
+		const { data } = await planDeMejoramientoApi.post('/academic-program', { pracNombre, pracCodigo });
 		console.log(data);
 	} catch (error) {
 		console.log(error);
@@ -15,7 +15,7 @@ const createdAcademicProgramServices = async ({ pracNombre, pracCodigo }) => {
 //Conseguir todos los programas academicos
 const getAllAcademicProgramServices = async () => {
 	try {
-		const { data } = await planDeMejoramientoApi.get('/academic_program');
+		const { data } = await planDeMejoramientoApi.get('/academic-program');
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -24,7 +24,7 @@ const getAllAcademicProgramServices = async () => {
 
 const updateAcademicProgramServices = async (pracId, { pracNombre, pracCodigo }) => {
 	try {
-		const { data } = await planDeMejoramientoApi.put(`/academic_program/${pracId}`, { pracNombre, pracCodigo });
+		const { data } = await planDeMejoramientoApi.put(`/academic-program/${pracId}`, { pracNombre, pracCodigo });
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -34,7 +34,7 @@ const updateAcademicProgramServices = async (pracId, { pracNombre, pracCodigo })
 // TODO: Crear un servicio para eliminar un programa académico
 const deleteAcademicProgramServices = async (pracId) => {
 	try {
-		const { data } = await planDeMejoramientoApi.delete(`/academic_program/${pracId}`);
+		const { data } = await planDeMejoramientoApi.delete(`/academic-program/${pracId}`);
 		console.log(data)
 		return data;
 	} catch (error) {

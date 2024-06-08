@@ -3,7 +3,7 @@ import planDeMejoramientoApi from '../wrappers/planDeMejoramiento';
 const createdInvestmentProgramServices = async ({ prinNombre, liesId }) => {
 	//TODO: Preguntar si es necesario enviar el ejeId
 	try {
-		const { data } = await planDeMejoramientoApi.post('/investment_program', { prinNombre, liesId });
+		const { data } = await planDeMejoramientoApi.post('/investment-program', { prinNombre, liesId });
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -14,7 +14,7 @@ const createdInvestmentProgramServices = async ({ prinNombre, liesId }) => {
 
 const getAllInvestmentProgramServices = async () => {
 	try {
-		const { data } = await planDeMejoramientoApi.get('/investment_program');
+		const { data } = await planDeMejoramientoApi.get('/investment-program');
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -24,7 +24,7 @@ const getAllInvestmentProgramServices = async () => {
 const updateInvestmentProgramServices = async ({ prinId, prinNombre, liesId }) => {
 	//TODO: Preguntar si es necesario enviar el printId
 	try {
-		const { data } = await planDeMejoramientoApi.put(`/investment_program/${prinId}`, { prinNombre, liesId });
+		const { data } = await planDeMejoramientoApi.put(`/investment-program/${prinId}`, { prinNombre, liesId });
 		return data;
 	} catch (error) {
 		console.log(error);
@@ -33,7 +33,7 @@ const updateInvestmentProgramServices = async ({ prinId, prinNombre, liesId }) =
 
 const findByIdInvestmentProgramServices = async (prinId) => {
 	try {
-		const { data } = await planDeMejoramientoApi.get(`/investment_program/${prinId}`);
+		const { data } = await planDeMejoramientoApi.get(`/investment-program/${prinId}`);
 		return data;
 	} catch (error) {
 		console.log(error);

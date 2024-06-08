@@ -18,6 +18,7 @@ function getItem(label, key, icon = <FileOutlined />, children, path) {
 	};
 }
 
+//TODO: este menu debe venir de bk
 const items = [
 	getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
 		getItem('Programa Academico', '3', <FileOutlined />, null, '/programa-academico'),

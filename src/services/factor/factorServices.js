@@ -15,7 +15,7 @@ const createdFactorServices = async ({ factNombre, tifaId }) => {
 //Conseguir todos los tipo factor
 const getAllFactorTypesServices = async () => {
 	try {
-		const { data } = await planDeMejoramientoApi.get('/factor_type');
+		const { data } = await planDeMejoramientoApi.get('/factor-type');
 		return data;
 	} catch (error) {
 		console.log(error);
