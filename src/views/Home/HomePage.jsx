@@ -36,7 +36,8 @@ const items = [
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
-	const { logged, logout, user } = useContext(AuthContext);
+	const { logged, logout, user , isAdmin} = useContext(AuthContext);
+	console.log(isAdmin)
 	const {usuario} = user;
 	const navigate = useNavigate();
 
@@ -72,7 +73,8 @@ const HomePage = () => {
 	const onLogout = () => {
 		localStorage.clear();
 		logout();
-		navigate('/', { replace: true });
+		const route = isAdmin ? '/login-admin' : '/login';
+		navigate({route}, { replace: true });
 	};
 
 	console.log({user})
@@ -103,7 +105,7 @@ const HomePage = () => {
 					}}
 				>
 					<Typography
-						onClick={onLogout}
+						onClick={onLogout }
 						style={{							
 							paddingTop: 10,
 							paddingRight: 10,

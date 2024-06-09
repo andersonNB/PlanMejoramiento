@@ -1,7 +1,8 @@
 import { CustomModal } from '../../../components/Modal/CustomModal';
 import { singIn, singInAdmin } from '../../../services/login/loginServices';
+import { setIsAdmin } from './loginSlice';
 
-export const tSignIn = ({ token, tiusId, pracId }) => async (dispatch) => {
+export const tSignIn = ({ token, tiusId, pracId ,isAdminParam}) => async (dispatch) => {
 	try {
 		const res = await singIn({ token, tiusId, pracId });
 		console.log(res);
@@ -12,6 +13,9 @@ export const tSignIn = ({ token, tiusId, pracId }) => async (dispatch) => {
 
 		localStorage.setItem('token', res.token);
 		localStorage.setItem('user', serializer.serialize(res.usuario));
+
+
+		dispatch(setIsAdmin(isAdminParam));
 		return res;
 		
 	} catch (e) {
@@ -25,6 +29,7 @@ export const tSignInAdmin = ({ usuario, password }) => async (dispatch) => {
 		const res = await singInAdmin({ usuario, password });
 		
 		console.log(res)
+		dispatch(setIsAdmin(true));
 		return res;
 	} catch (error) {
 		console.log(error);		
