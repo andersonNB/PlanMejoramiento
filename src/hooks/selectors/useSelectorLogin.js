@@ -1,21 +1,23 @@
 import { useDispatch } from 'react-redux';
-import { tSignIn } from '../../store/slice/auth/thunkLogin';
-
+import { tSignIn, tSignInAdmin } from '../../store/slice/auth/thunkLogin';
 
 const useSelectorLogin = () => {
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-
-    const signIn = ({token, tiusId,pracId}) => {
-        // console.log({token, tiusId,pracId})
-		return dispatch(tSignIn({token, tiusId,pracId}));
+	const signIn = async ({ token, tiusId, pracId }) => {
+		// console.log({token, tiusId,pracId})
+		return dispatch(await tSignIn({ token, tiusId, pracId }));
 	};
 
+	const signInAdmin = async ({usuario,password}) => {
+		return dispatch(await tSignInAdmin({usuario,password}));
+	}
 
-    return {
+	return {
 		//STATE
 		//FUNCTIONS
-		signIn
+		signIn,
+		signInAdmin
 	};
 };
 

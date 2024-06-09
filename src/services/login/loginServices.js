@@ -16,4 +16,14 @@ const singIn = async ({token, tiusId,pracId}) => {
 };
 
 
-export {singIn};
+const singInAdmin = async({ usuario, password })=>{
+    try {
+        const {data} = await planDeMejoramientoApi.post('login-admin',{usuario,password});
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export {singIn,singInAdmin};

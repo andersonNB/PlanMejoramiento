@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Form, Input, Button, Select } from 'antd';
+import { QuestionCircleFilled } from '@ant-design/icons';
 import { GoogleLogin } from '@react-oauth/google';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -35,7 +36,7 @@ const ButtonItem = styled(Button)`
 `;
 
 const LoginPage = ({ isAdmin }) => {
-	const { signIn } = useSelectorLogin();
+	const { signIn, signInAdmin } = useSelectorLogin();
 	const [form] = Form.useForm();
 	const { login } = useContext(AuthContext);
 	const { getAllAcademicProgram, academicPrograms } = useSelectorProgramAcademic();
@@ -59,7 +60,7 @@ const LoginPage = ({ isAdmin }) => {
 
 	// console.log({ academicPrograms, typeUser });
 
-	const responseGoogle = (response) => {
+	const responseGoogle = async (response) => {
 		console.log(response);
 		const parts = response.credential.split('.');
 		if (parts.length !== 3) {
@@ -69,7 +70,7 @@ const LoginPage = ({ isAdmin }) => {
 		// console.log(form.getFieldsValue())
 		const { pracId, tiusId } = form.getFieldsValue();
 
-		const infoUser = signIn({ token: response.credential, tiusId, pracId });
+		const infoUser = await signIn({ token: response.credential, tiusId, pracId });
 		console.log(infoUser);
 		login(infoUser);
 
@@ -78,8 +79,10 @@ const LoginPage = ({ isAdmin }) => {
 		});
 	};
 
-	const onSubmitAdmin = (values) => {
+	const onSubmitAdmin = async (values) => {
 		console.log(values);
+		const infoUserAdmin = await signInAdmin(values);
+		login(infoUserAdmin);
 	};
 
 	return (
@@ -93,7 +96,12 @@ const LoginPage = ({ isAdmin }) => {
 								Seguimiento y Gestión Plan De Mejoramiento
 							</h3>
 						</Col>
-						<Col xs={20} sm={20} md={24} lg={24} style={{ display: 'flex', justifyContent: 'center', marginBottom: '5%' }}
+						<Col
+							xs={20}
+							sm={20}
+							md={24}
+							lg={24}
+							style={{ display: 'flex', justifyContent: 'center', marginBottom: '5%' }}
 						>
 							<img src='http://www.enjambre.gov.co/imagenes/logo_ufps.png' width={300} />
 						</Col>
@@ -102,7 +110,7 @@ const LoginPage = ({ isAdmin }) => {
 								<Form name='formLogin' layout='vertical' onFinish={onSubmitAdmin}>
 									<Form.Item
 										// label='Username'
-										name='username'
+										name='usuario'
 										rules={[
 											{
 												required: true,
@@ -149,7 +157,10 @@ const LoginPage = ({ isAdmin }) => {
 										}}
 										style={{ textAlign: 'center' }}
 									>
-										<ButtonItem type='primary' htmlType='submit'>
+										<ButtonItem
+											style={{ backgroundColor: '#D73925', color: 'white' }}
+											htmlType='submit'
+										>
 											Iniciar Sesión
 										</ButtonItem>
 									</Form.Item>
@@ -159,8 +170,8 @@ const LoginPage = ({ isAdmin }) => {
 										}}
 										style={{ textAlign: 'center' }}
 									>
-										<a href='#' style={{ textDecoration: 'underline' }}>
-											Olvide mi contraseña
+										<a href='#' style={{ textDecoration: 'none', color:'#D73925' }}>
+										<QuestionCircleFilled />	¿Olvide mi contraseña?
 										</a>
 									</Form.Item>
 								</Form>

@@ -1,0 +1,13 @@
+export * from './AcademyProgram/AcademyProgram';
+export * from './Factor/Factor';
+export { default as TableFactor } from './Factor/TableFactor';
+export * from './ImprovementPlan/ImprovementPlan';
+export * from './InvestmentProgram/InvestmentProgram';
+export * from './Modal/CustomModal';
+export * from './Process/Process';
+export { default as TableProcess } from './Process/TableProcess';
+export * from './StrategicAxis/StrategicAxis';
+export { default as TableStrategicAxes } from './StrategicAxis/TableStrategicAxes';
+export * from './StrategicLine/StrategicLine';
+export { default as TableStrategicLine } from './StrategicLine/TableStrategicLine';
+export { default as Table } from './Table/Table';
