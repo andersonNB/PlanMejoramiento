@@ -8,6 +8,7 @@ export const loginSlice = createSlice({
     resetPassword: null,
     forgetPasswordResponse: null,
     infoUserLogged: {},
+    isAdmin:false,
   },
   reducers: {
     isLogin: (state, action) => {
@@ -21,7 +22,10 @@ export const loginSlice = createSlice({
     forgetPassword: (state, { payload }) => {
       state.forgetPasswordResponse = payload;
     },
+    setIsAdmin:(state,action)=>{
+      state.isAdmin = action.payload;
+    }
   },
 });
 
-export const { isLogin, setChangePassword, forgetPassword } = loginSlice.actions;
+export const { isLogin,isAdmin, setChangePassword, forgetPassword, setIsAdmin } = loginSlice.actions;

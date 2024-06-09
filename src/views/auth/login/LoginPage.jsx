@@ -72,7 +72,7 @@ const LoginPage = ({ isAdmin }) => {
 
 		const infoUser = await signIn({ token: response.credential, tiusId, pracId });
 		console.log(infoUser);
-		login(infoUser);
+		login({infoUser, isAdmin});
 
 		history(lastPath, {
 			replace: true,
@@ -81,8 +81,8 @@ const LoginPage = ({ isAdmin }) => {
 
 	const onSubmitAdmin = async (values) => {
 		console.log(values);
-		const infoUserAdmin = await signInAdmin(values);
-		login(infoUserAdmin);
+		const infoUser = await signInAdmin(values);
+		login({infoUser, isAdmin});
 	};
 
 	return (

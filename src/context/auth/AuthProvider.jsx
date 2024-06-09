@@ -4,7 +4,8 @@ import AuthContext from './AuthContext';
 
 const initialState = {
 	logged: false,
-	user: null
+	user: null,
+	isAdmin:null,
 };
 
 const init = () => {
@@ -16,7 +17,8 @@ const init = () => {
 
 	return {
 		logged: !!user,
-		user: user
+		user: user,
+		isAdmin:JSON.parse(localStorage.getItem('isAdmin')),
 	};
 };
 
@@ -25,14 +27,17 @@ const AuthProvider = ({ children }) => {
 	const [authState, dispatch] = useReducer(authReducer, initialState, init);
 
 	console.log({ authState });
-	const login = async (user) => {
+	const login = async ({infoUser, isAdmin}) => {
+		console.log(infoUser, isAdmin)
 
 		const action = {
 			types: 'login',
-			payload: user
+			payload: infoUser,
+			isAdmin
 		};
 
-		localStorage.setItem('user', JSON.stringify(user));
+		localStorage.setItem('user', JSON.stringify(infoUser));
+		localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
 
 		dispatch(action);
 
