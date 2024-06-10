@@ -89,7 +89,7 @@ const LoginPage = ({ isAdmin }) => {
 		<Row style={{ width: '100%', paddingTop: '10%' }} justify='center' /*gutter={[16, 16]}*/>
 			<Row style={{ width: '100%' }} justify='center'>
 				<Col xs={20} sm={20} md={12} lg={12}>
-					<Row style={{ backgroundColor: '#fafafa', borderRadius: '10px' }} justify='center'>
+					<Row style={{ background: 'linear-gradient(335deg, rgba(193,193,193,1) 1%, rgba(249,243,243,1) 60%)', borderRadius: '10px' }} justify='center'>
 						<Col xs={20} sm={20} md={24} lg={24} style={{ justifyContent: 'center' }}>
 							<h3 style={{ textAlign: 'center', color: 'black' }}>
 								{' '}
