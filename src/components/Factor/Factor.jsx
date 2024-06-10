@@ -9,7 +9,7 @@ export const Factor = () => {
 	const { getAllFactorTypes, factorTypes, factors, createFactor, getAllFactor } = useSelectorFactor();
 
 	// TODO: Mirar por que se llama el servicio 3 veces
-	console.log(factorTypes.length);
+	console.log(factorTypes?.length);
 	useEffect(() => {
 		getAllFactor();
 		getAllFactorTypes();
@@ -66,7 +66,7 @@ export const Factor = () => {
 
 					>
 						<Select placeholder="Tipo factor">
-							{factorTypes.length > 0 &&
+							{factorTypes?.length > 0 &&
 								factorTypes.map((tipoFactor, index) => {
 									return (
 										<Select.Option key={index} value={tipoFactor?.tifaId}>

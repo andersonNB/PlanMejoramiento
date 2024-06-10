@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import {
 	DesktopOutlined,
 	FileOutlined,
@@ -31,21 +32,6 @@ function getItem(label, key, icon = <FileOutlined />, children, path) {
 	};
 }
 
-//TODO: este menu debe venir de bk
-const items = [
-	getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
-		getItem('Programa Academico', '3', <BookOutlined />, null, '/programa-academico'),
-		getItem('Factor', '4', <GatewayOutlined />, null, '/factor'),
-		getItem('Ejes Estrategicos', '5', <ProductOutlined />, null, '/eje-estrategico'),
-		getItem('Lineas Estrategicas', '6', <PartitionOutlined />, null, '/linea-estrategica'),
-		getItem('Programas Inversión', '7', <ProjectOutlined />, null, '/programa-inversion'),
-		getItem('Procesos', '8', <BlockOutlined />, null, '/proceso'),
-		getItem('Tipo situacion', '9', <FileProtectOutlined />, null, '/tipo-situacion')
-	]),
-	getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, null, '/plan-mejoramiento'),
-	getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')])
-	// getItem('Files', '9', <FileOutlined />),
-];
 const HomePage = () => {
 	const [collapsed, setCollapsed] = useState(false);
 	const [itemRoutes, setItemRoutes] = useState();
@@ -53,6 +39,22 @@ const HomePage = () => {
 	console.log(isAdmin);
 	const { usuario } = user;
 	const navigate = useNavigate();
+
+	const items = isAdmin
+		? [
+				getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
+					getItem('Programa Academico', '3', <BookOutlined />, null, '/programa-academico'),
+					getItem('Factor', '4', <GatewayOutlined />, null, '/factor'),
+					getItem('Ejes Estrategicos', '5', <ProductOutlined />, null, '/eje-estrategico'),
+					getItem('Lineas Estrategicas', '6', <PartitionOutlined />, null, '/linea-estrategica'),
+					getItem('Programas Inversión', '7', <ProjectOutlined />, null, '/programa-inversion'),
+					getItem('Procesos', '8', <BlockOutlined />, null, '/proceso'),
+					getItem('Tipo situacion', '9', <FileProtectOutlined />, null, '/tipo-situacion'),
+				]),
+				getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, null, '/plan-mejoramiento'),
+				getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+		  ]
+		: [getItem('En construcción...', '1', <FileOutlined />)];
 
 	console.log('|||| desde home ', user);
 	useEffect(() => {
@@ -117,7 +119,8 @@ const HomePage = () => {
 						padding: 0,
 						background: '#DD4B39',
 						display: 'flex',
-						justifyContent: 'flex-end'
+						justifyContent: 'flex-end',
+						height:'40px'
 					}}
 				>
 					<Typography
@@ -127,7 +130,7 @@ const HomePage = () => {
 							paddingRight: 10,
 							color: 'white',
 							cursor: 'pointer',
-							width: '114px'
+							width: '114px',
 						}}
 					>
 						{' '}
@@ -161,7 +164,7 @@ const HomePage = () => {
 						textAlign: 'center'
 					}}
 				>
-					Ant Design ©{new Date().getFullYear()} Created by UFPS
+					Plan Mejoramiento ©{new Date().getFullYear()} Created by UFPS
 				</Footer>
 			</Layout>
 		</Layout>
