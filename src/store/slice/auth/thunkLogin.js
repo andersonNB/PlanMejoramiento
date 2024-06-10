@@ -27,7 +27,7 @@ export const tSignIn = ({ token, tiusId, pracId ,isAdminParam}) => async (dispat
 export const tSignInAdmin = ({ usuario, password }) => async (dispatch) => {
 	try {
 		const res = await singInAdmin({ usuario, password });
-		
+		localStorage.setItem('token', res.token);
 		console.log(res)
 		dispatch(setIsAdmin(true));
 		return res;

@@ -42,18 +42,18 @@ const HomePage = () => {
 
 	const items = isAdmin
 		? [
-				getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
-					getItem('Programa Academico', '3', <BookOutlined />, null, '/programa-academico'),
-					getItem('Factor', '4', <GatewayOutlined />, null, '/factor'),
-					getItem('Ejes Estrategicos', '5', <ProductOutlined />, null, '/eje-estrategico'),
-					getItem('Lineas Estrategicas', '6', <PartitionOutlined />, null, '/linea-estrategica'),
-					getItem('Programas Inversión', '7', <ProjectOutlined />, null, '/programa-inversion'),
-					getItem('Procesos', '8', <BlockOutlined />, null, '/proceso'),
-					getItem('Tipo situacion', '9', <FileProtectOutlined />, null, '/tipo-situacion'),
-				]),
-				getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, null, '/plan-mejoramiento'),
-				getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-		  ]
+			getItem('INFORMACIÓN PREDETERMINADA', '1', <PieChartOutlined />, [
+				getItem('Programa Academico', '3', <BookOutlined />, null, '/programa-academico'),
+				getItem('Factor', '4', <GatewayOutlined />, null, '/factor'),
+				getItem('Ejes Estrategicos', '5', <ProductOutlined />, null, '/eje-estrategico'),
+				getItem('Lineas Estrategicas', '6', <PartitionOutlined />, null, '/linea-estrategica'),
+				getItem('Programas Inversión', '7', <ProjectOutlined />, null, '/programa-inversion'),
+				getItem('Procesos', '8', <BlockOutlined />, null, '/proceso'),
+				getItem('Tipo situacion', '9', <FileProtectOutlined />, null, '/tipo-situacion')
+			]),
+			getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, null, '/plan-mejoramiento'),
+			getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')])
+		]
 		: [getItem('En construcción...', '1', <FileOutlined />)];
 
 	console.log('|||| desde home ', user);
@@ -99,28 +99,33 @@ const HomePage = () => {
 				minHeight: '100vh'
 			}}
 		>
-			<Sider theme="light" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
+			<Sider theme="light" collapsible collapsed={collapsed}
+				 onCollapse={(value) => setCollapsed(value)}
 				 width={310}>
-				<div className="demo-logo-vertical" />
 				<Row style={{ width: '100%', paddingTop: '5%' }} justify="center">
 					<Avatar size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
 						  src={usuario?.usuaFoto ? usuario?.usuaFoto : 'https://ingsistemas.cloud.ufps.edu.co/rsc/img/logo_ingsistemas_vertical_invertido.png'} />
 				</Row>
 				<Row style={{ width: '100%' }} justify="center">
-					<h4 style={{ color: 'black' }}>{usuario?.usuaNombre || 'nombre Admin'}</h4>
+					<h4 style={{
+						textAlign: 'center',
+						color: 'black'
+					}}>{usuario?.usuaNombre || 'nombre Admin'}</h4>
 				</Row>
 
 				<Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items}
 					onSelect={onChangeItem} />
 			</Sider>
-			<Layout style={{ backgroundColor: 'gray' }}>
+
+
+			<Layout style={{ backgroundColor: '#fafafa' }}>
 				<Header
 					style={{
 						padding: 0,
 						background: '#DD4B39',
 						display: 'flex',
 						justifyContent: 'flex-end',
-						height:'40px'
+						height: '40px'
 					}}
 				>
 					<Typography
@@ -130,7 +135,7 @@ const HomePage = () => {
 							paddingRight: 10,
 							color: 'white',
 							cursor: 'pointer',
-							width: '114px',
+							width: '150px'
 						}}
 					>
 						{' '}
@@ -139,7 +144,8 @@ const HomePage = () => {
 				</Header>
 				<Content
 					style={{
-						height: '100vh'
+						height: 'auto',
+						margin: '1%'
 					}}
 				>
 					<div
@@ -161,12 +167,14 @@ const HomePage = () => {
 				</Content>
 				<Footer
 					style={{
-						textAlign: 'center'
+						textAlign: 'center',
+						padding: '15px 50px'
 					}}
 				>
 					Plan Mejoramiento ©{new Date().getFullYear()} Created by UFPS
 				</Footer>
 			</Layout>
+
 		</Layout>
 	);
 };

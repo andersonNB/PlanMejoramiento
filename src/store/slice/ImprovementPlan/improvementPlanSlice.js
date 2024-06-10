@@ -1,16 +1,32 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 
-export const improvementPlanSlice = createSlice({
-    name:'IMPROVEMENT_PLAN',
-    initialState:{
-        improvementPlans:[],       
-    },
-    reducers:{
-        setImprovementPlans:(state,action)=>{
-            state.improvementPlans = action.payload;
-        },
-    }
+export const improvementPlan = createSlice({
+	name: 'IMPROVEMENT_PLAN',
+	initialState: {
+		improvementPlans: [],
+		improvementPlan: null
+	},
+	reducers: {
+		setImprovementPlans: (state, action) => {
+			state.improvementPlans = action.payload;
+		},
+		setImprovementPlan: (state, action) => {
+			state.improvementPlan = action.payload;
+		},
+		createdImprovementPlan: (state, action) => {
+			state.improvementPlans.push(action.payload);
+		},
+		updateImprovementPlanID: (state, action) => {
+			const { data, index } = action.payload;
+			state.improvementPlans[index] = { ...data };
+		}
+	}
 });
 
-export const {setImprovementPlans} = improvementPlanSlice.actions;
+export const {
+	setImprovementPlans,
+	setImprovementPlan,
+	createdImprovementPlan,
+	updateImprovementPlanID
+} = improvementPlan.actions;
