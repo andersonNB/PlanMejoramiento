@@ -1,15 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Input, Button, Table, Space, Typography, Popconfirm, Modal } from 'antd';
+import { Input, Button, Table, Space, Typography, Popconfirm, Modal, Row, Col, Form, Select } from 'antd';
 import PropTypes from 'prop-types';
+import useSelectorImprovementPlan from '../../hooks/selectors/useSelectorImprovementPlan';
 /*import Highlighter from 'react-highlight-words';*/
 
 // eslint-disable-next-line react/display-name
-const TableImprovementPlan = React.memo(({ datasource = [] }) => {
+const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [] }) => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [form] = Form.useForm();
+	const [rowClick, setRowClick] = useState({});
+	const { updateImprovementPlan } = useSelectorImprovementPlan();
 
 	const handleSearch = (selectedKeys, confirm, dataIndex) => {
 		confirm();
@@ -137,39 +141,47 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 			...getColumnSearchProps('address'),
 			sorter: (a, b) => a.address.length - b.address.length,
 			sortDirections: ['descend', 'ascend'],
-			render: (_, record) => {
+			render: (text, record, index) => {
 				const editable = true;
 				// const editable = isEditing(record);
-				return editable ? (
-					<span>
-						<Typography.Link
-							onClick={() => setIsModalOpen(true)}
-							style={{
-								marginRight: 8,
-							}}
-						>
-							Guardar
-						</Typography.Link>
-						<Popconfirm title='Deseas cancelar?' onConfirm={() => console.log('cancelar')} okText=' Si'>
-							<a>Cancelar</a>
-						</Popconfirm>
-					</span>
-				) : (
-					<>
-						<Typography.Link
-							/*disabled={editingKey !== ''}*/ onClick={() => console.log('edit')}
-							style={{ margin: 15 }}
-						>
-							<EditOutlined /> Editar
-						</Typography.Link>
-						<Typography.Link /*disabled={editingKey !== ''}*/ onClick={() => console.log('deleteProgram')}>
-							<DeleteOutlined /> Eliminar
-						</Typography.Link>
-					</>
+				return (
+					editable && (
+						<span>
+							<Typography.Link
+								onClick={() => setIsModalOpen(true)}
+								style={{
+									marginRight: 8,
+								}}
+							>
+								Editar
+							</Typography.Link>
+						</span>
+					)
 				);
 			},
 		},
 	];
+
+	const onSubmitUpdate = (values) => {
+		console.log(values);
+	};
+
+	const handleEdit = (record) => {
+		// e.stopPropagation();
+
+		console.log({ record, datasource });
+
+		const selectedRow = datasource.filter((item) => {
+			return item.plmeId === record.plmeId;
+		});
+		form.setFieldsValue({
+			plmeNombre: selectedRow.plmeNombre,
+			pracId: selectedRow.programaAcademico?.pracId,
+		});
+		console.log(selectedRow);
+		setIsModalOpen(true);
+		setRowClick(selectedRow);
+	};
 
 	return (
 		<>
@@ -179,17 +191,79 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 					...item,
 					key: item.plmeId,
 				}))}
+				onRow={(record, index) => {
+					return {
+						onClick: () => handleEdit(record),
+					};
+				}}
 			/>
 			{isModalOpen && (
-				<Modal
-					title='Basic Modal'
-					open={isModalOpen}
-					onOk={() => setIsModalOpen(false)}
-					onCancel={() => setIsModalOpen(false)}
-				>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
-					<p>Some contents...</p>
+				<Modal title='Editar Plan de Mejoramiento' open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null}>
+					<Row style={{ backgroundColor: '#fafafa', borderRadius: '10px' }} justify='center'>
+						<Col xs={12} sm={12} md={24} lg={24}>
+							<Form
+								form={form}
+								name='formLogin'
+								layout='horizontal'
+								onFinish={onSubmitUpdate}
+								labelCol={{ span: 8 }}								
+							>
+								<Form.Item
+									label='Nombre'
+									name='plmeNombre'
+									rules={[
+										{
+											required: true,
+											message: 'Digite un nombre para el plan de mejoramiento',
+										},
+									]}									
+								>
+									<Input
+										placeholder='nombre plan de mejoramiento'										
+									/>
+								</Form.Item>
+
+								<Form.Item
+									label='Programa Academico'
+									name='pracId'
+									rules={[
+										{
+											required: true,
+											message: 'Por favor, escoja un programa académico',
+										},
+									]}									
+								>
+									<Select
+										placeholder='Programa Academico'										
+									>
+										{academicPrograms?.length > 0 &&
+											academicPrograms.map((program, index) => {
+												return (
+													<Select.Option key={index} value={program?.pracId}>
+														{program?.pracNombre}
+													</Select.Option>
+												);
+											})}
+									</Select>
+								</Form.Item>
+
+								<Form.Item
+									wrapperCol={{
+										md: { span: 12, offset: 6 },
+									}}
+									style={{ textAlign: 'center' }}
+								>
+									<Button
+										type='primary'
+										htmlType='submit'
+										style={{ backgroundColor: '#D73925', color: 'white' }}
+									>
+										Editar Plan
+									</Button>
+								</Form.Item>
+							</Form>
+						</Col>
+					</Row>
 				</Modal>
 			)}
 		</>
@@ -198,6 +272,7 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 
 TableImprovementPlan.propTypes = {
 	datasource: PropTypes.array.isRequired,
+	academicPrograms: PropTypes.array.isRequired,
 };
 
 export default TableImprovementPlan;

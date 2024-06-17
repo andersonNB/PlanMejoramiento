@@ -29,7 +29,7 @@ export const tGetAllImprovementPlanByAcademicProgram = (pracId) => async (dispat
 export const tCreateImprovementPlan = ({ plmeNombre, pracId }, objImprovementPlan) => async (dispatch) => {
 	try {
 		await createdImprovementPlanServices({ plmeNombre, pracId });
-		dispatch(createdImprovementPlan(objImprovementPlan));
+		dispatch(createdImprovementPlan({ plmeNombre, pracId }));
 	} catch (error) {
 		console.log(error);
 	}
