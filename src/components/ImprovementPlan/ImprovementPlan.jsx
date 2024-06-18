@@ -17,6 +17,11 @@ export const ImprovementPlan = () => {
 		getAllImprovementPlans();
 	}, []);
 
+	useEffect(() => {
+		getAllImprovementPlans();
+	}, [improvementPlans.length > 0])
+	
+
 	const onSubmitProgram = (values) => {
 		console.log(values);
 		createImprovementPlan(values);

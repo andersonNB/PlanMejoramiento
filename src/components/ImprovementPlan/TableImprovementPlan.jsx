@@ -12,7 +12,7 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 	const searchInput = useRef(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [form] = Form.useForm();
-	const [rowClick, setRowClick] = useState({});
+	const [rowClick, setRowClick] = useState([{}]);
 	const { updateImprovementPlan } = useSelectorImprovementPlan();
 
 	const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -163,24 +163,23 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 	];
 
 	const onSubmitUpdate = (values) => {
-		console.log(values);
+		console.log(rowClick)
+		updateImprovementPlan(rowClick[0].plmeId, values, rowClick[1]);
 	};
 
 	const handleEdit = (record) => {
 		// e.stopPropagation();
-
-		console.log({ record, datasource });
-
 		const selectedRow = datasource.filter((item) => {
 			return item.plmeId === record.plmeId;
 		});
+
+		const indexSelectedRow = datasource.findIndex((item) => item.plmeId === record.plmeId);
 		form.setFieldsValue({
 			plmeNombre: selectedRow.plmeNombre,
 			pracId: selectedRow.programaAcademico?.pracId,
 		});
-		console.log(selectedRow);
 		setIsModalOpen(true);
-		setRowClick(selectedRow);
+		setRowClick([...selectedRow, indexSelectedRow]);
 	};
 
 	return (
@@ -206,7 +205,7 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 								name='formLogin'
 								layout='horizontal'
 								onFinish={onSubmitUpdate}
-								labelCol={{ span: 8 }}								
+								labelCol={{ span: 8 }}
 							>
 								<Form.Item
 									label='Nombre'
@@ -216,11 +215,9 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 											required: true,
 											message: 'Digite un nombre para el plan de mejoramiento',
 										},
-									]}									
+									]}
 								>
-									<Input
-										placeholder='nombre plan de mejoramiento'										
-									/>
+									<Input placeholder='nombre plan de mejoramiento' />
 								</Form.Item>
 
 								<Form.Item
@@ -231,11 +228,9 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 											required: true,
 											message: 'Por favor, escoja un programa académico',
 										},
-									]}									
+									]}
 								>
-									<Select
-										placeholder='Programa Academico'										
-									>
+									<Select placeholder='Programa Academico'>
 										{academicPrograms?.length > 0 &&
 											academicPrograms.map((program, index) => {
 												return (

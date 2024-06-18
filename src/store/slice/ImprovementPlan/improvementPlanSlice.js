@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 export const improvementPlan = createSlice({
 	name: 'IMPROVEMENT_PLAN',
 	initialState: {
 		improvementPlans: [],
-		improvementPlan: null
+		improvementPlan: null,
 	},
 	reducers: {
 		setImprovementPlans: (state, action) => {
@@ -19,14 +18,10 @@ export const improvementPlan = createSlice({
 		},
 		updateImprovementPlanID: (state, action) => {
 			const { data, index } = action.payload;
-			state.improvementPlans[index] = { ...data };
-		}
-	}
+			console.log({data, index})
+			Object.assign(state.improvementPlans[index], data);
+		},
+	},
 });
 
-export const {
-	setImprovementPlans,
-	setImprovementPlan,
-	createdImprovementPlan,
-	updateImprovementPlanID
-} = improvementPlan.actions;
+export const { setImprovementPlans, setImprovementPlan, createdImprovementPlan, updateImprovementPlanID } = improvementPlan.actions;
