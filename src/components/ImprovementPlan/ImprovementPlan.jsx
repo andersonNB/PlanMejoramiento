@@ -9,7 +9,7 @@ export const ImprovementPlan = () => {
 
 
 	const { getAllAcademicProgram, academicPrograms } = useSelectorProgramAcademic();
-	const { getAllImprovementPlans, improvementPlans } = useSelectorImprovementPlan();
+	const { getAllImprovementPlans, improvementPlans, createImprovementPlan } = useSelectorImprovementPlan();
 
 
 	useEffect(() => {
@@ -17,8 +17,14 @@ export const ImprovementPlan = () => {
 		getAllImprovementPlans();
 	}, []);
 
+	useEffect(() => {
+		getAllImprovementPlans();
+	}, [improvementPlans.length > 0])
+	
+
 	const onSubmitProgram = (values) => {
 		console.log(values);
+		createImprovementPlan(values);
 	};
 
 	return (
@@ -89,7 +95,7 @@ export const ImprovementPlan = () => {
 				</Form>
 			</Col>
 			<Col xs={12} sm={12} md={24} lg={24}>
-				<TableImprovementPlan datasource={improvementPlans} />
+				<TableImprovementPlan datasource={improvementPlans}  academicPrograms={academicPrograms}/>
 			</Col>
 		</Row>
 	);

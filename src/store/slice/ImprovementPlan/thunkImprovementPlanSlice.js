@@ -29,7 +29,7 @@ export const tGetAllImprovementPlanByAcademicProgram = (pracId) => async (dispat
 export const tCreateImprovementPlan = ({ plmeNombre, pracId }, objImprovementPlan) => async (dispatch) => {
 	try {
 		await createdImprovementPlanServices({ plmeNombre, pracId });
-		dispatch(createdImprovementPlan(objImprovementPlan));
+		dispatch(createdImprovementPlan({ plmeNombre, pracId }));
 	} catch (error) {
 		console.log(error);
 	}
@@ -39,6 +39,7 @@ export const tCreateImprovementPlan = ({ plmeNombre, pracId }, objImprovementPla
 
 export const tUpdateImprovementPlan = (plmeId, { plmeNombre, pracId }, index) => async (dispatch) => {
 	try {
+		console.log({plmeId,  plmeNombre, pracId , index})
 		const data = await updateImprovementPlanServices(plmeId, { plmeNombre, pracId });
 		console.log(data);
 		dispatch(updateImprovementPlanID({ data, index }));
