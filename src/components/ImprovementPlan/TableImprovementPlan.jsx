@@ -29,7 +29,7 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 			>
 				<Input
 					ref={searchInput}
-					placeholder={`Search ${dataIndex}`}
+					placeholder={`Buscar ${dataIndex}`}
 					value={selectedKeys[0]}
 					onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
 					onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -48,7 +48,7 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 							width: 90
 						}}
 					>
-						Search
+						Buscar
 					</Button>
 					<Button
 						onClick={() => clearFilters && handleReset(clearFilters)}
@@ -57,7 +57,7 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 							width: 90
 						}}
 					>
-						Reset
+						Limpiar
 					</Button>
 					<Button
 						type="link"
@@ -131,9 +131,9 @@ const TableImprovementPlan = React.memo(({ datasource = [] }) => {
 		},
 		{
 			title: 'Acción',
-			dataIndex: 'address',
-			key: 'address',
-			...getColumnSearchProps('address'),
+			dataIndex: 'plmeId',
+			key: 'plmeId',
+			...getColumnSearchProps('plmeId'),
 			sorter: (a, b) => a.address.length - b.address.length,
 			sortDirections: ['descend', 'ascend']
 		}
