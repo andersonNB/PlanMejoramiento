@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import { AcademyProgram, Factor, ImprovementPlan, InvestmentProgram, Process, StrategicAxis, StrategicLine } from '../components/index.js';
+import { AcademyProgram, Factor, ImprovementPlan, InvestmentProgram, Process, StrategicAxis, StrategicLine, TypeSituation } from '../components/index.js';
 import HomePage from '../views/Home/HomePage';
 import LoginPage from '../views/auth/login/LoginPage';
 import PrivateRoute from './PrivateRoute';
@@ -55,6 +55,11 @@ const router = createBrowserRouter([
 	{
 		path: '/plan-mejoramiento',
 		element: <PrivateRoute element={ImprovementPlan} />,
+		errorElement: <ErrorPage />,
+	},
+	{
+		path:'/tipo-situacion',
+		element: <PrivateRoute element={TypeSituation} />,
 		errorElement: <ErrorPage />,
 	},
 	{
