@@ -93,6 +93,7 @@ const HomePage = () => {
 	};
 
 	console.log({ user });
+	console.log("usuario ? ", usuario);
 	return (
 		<Layout
 			style={{
