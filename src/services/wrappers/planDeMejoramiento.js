@@ -16,4 +16,17 @@ planDeMejoramientoApi.interceptors.request.use(config => {
   return config;
 });
 
+
+// Interceptor de respuesta
+planDeMejoramientoApi.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+      localStorage.clear();
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default planDeMejoramientoApi;

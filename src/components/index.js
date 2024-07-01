@@ -2,6 +2,7 @@ export * from './AcademyProgram/AcademyProgram';
 export * from './Factor/Factor';
 export { default as TableFactor } from './Factor/TableFactor';
 export * from './ImprovementPlan/ImprovementPlan';
+export { default as TableImprovementPlan } from './ImprovementPlan/TableImprovementPlan';
 export * from './InvestmentProgram/InvestmentProgram';
 export * from './Modal/CustomModal';
 export * from './Process/Process';
@@ -11,3 +12,4 @@ export { default as TableStrategicAxes } from './StrategicAxis/TableStrategicAxe
 export * from './StrategicLine/StrategicLine';
 export { default as TableStrategicLine } from './StrategicLine/TableStrategicLine';
 export { default as Table } from './Table/Table';
+export * from './TypeSituation/TypeSituation';
