@@ -1,5 +1,8 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import { AcademyProgram, Factor, ImprovementPlan, InvestmentProgram, Process, StrategicAxis, StrategicLine, TypeSituation } from '../components/index.js';
+import {
+	AcademyProgram, Factor, ImprovementPlan, InvestmentProgram, Process, StrategicAxis, StrategicLine, TypeSituation,
+	ImprovementAction
+} from '../components/index.js';
 import HomePage from '../views/Home/HomePage';
 import LoginPage from '../views/auth/login/LoginPage';
 import PrivateRoute from './PrivateRoute';
@@ -10,63 +13,68 @@ const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <AuthRoute element={LoginPage} isAdmin={false} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/login-admin',
 		element: <AuthRoute element={LoginPage} isAdmin={true} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/dashboard',
 		element: <PrivateRoute element={HomePage} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/programa-academico',
 		element: <PrivateRoute element={AcademyProgram} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/factor',
 		element: <PrivateRoute element={Factor} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/eje-estrategico',
 		element: <PrivateRoute element={StrategicAxis} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/linea-estrategica',
 		element: <PrivateRoute element={StrategicLine} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/proceso',
 		element: <PrivateRoute element={Process} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/programa-inversion',
 		element: <PrivateRoute element={InvestmentProgram} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '/plan-mejoramiento',
 		element: <PrivateRoute element={ImprovementPlan} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
 	},
 	{
-		path:'/tipo-situacion',
+		path: '/tipo-situacion',
 		element: <PrivateRoute element={TypeSituation} />,
-		errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />
+	},
+	{
+		path: '/accion-mejora',
+		element: <PrivateRoute element={ImprovementAction} />,
+		errorElement: <ErrorPage />
 	},
 	{
 		path: '*',
-		element: <Navigate to='/login' />,
-		errorElement: <ErrorPage />,
-	},
+		element: <Navigate to="/login" />,
+		errorElement: <ErrorPage />
+	}
 ]);
 
 export default router;

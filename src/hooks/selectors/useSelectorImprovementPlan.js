@@ -3,12 +3,12 @@ import {
 	tCreateImprovementPlan,
 	tGetAllImprovementPlanByAcademicProgram,
 	tGetAllImprovementPlan,
-	tUpdateImprovementPlan
+	tUpdateImprovementPlan, tSetImprovementPlan
 } from '../../store/slice/ImprovementPlan/thunkImprovementPlanSlice.js';
 
 const useSelectorImprovementPlan = () => {
 	const dispatch = useDispatch();
-	const { improvementPlans } = useSelector((state) => state.IMPROVEMENT_PLAN);
+	const { improvementPlans, improvementPlan } = useSelector((state) => state.IMPROVEMENT_PLAN);
 
 	const getAllImprovementPlans = () => {
 		dispatch(tGetAllImprovementPlan());
@@ -27,10 +27,18 @@ const useSelectorImprovementPlan = () => {
 		dispatch(tUpdateImprovementPlan(plmeId, { plmeNombre, pracId }, index));
 	};
 
+	const setImprovementPlan = ({ plmeId, plmeNombre, pracId }, objPlan) => {
+		dispatch(tSetImprovementPlan(plmeId, { plmeNombre, pracId }, objPlan));
+		getAllImprovementPlans();
+	};
+
+
 	return {
 		//STATE
+		improvementPlan,
 		improvementPlans,
 		//FUNCTIONS
+		setImprovementPlan,
 		getAllImprovementPlans,
 		updateImprovementPlan,
 		createImprovementPlan,

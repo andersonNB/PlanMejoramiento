@@ -4,7 +4,21 @@ import {
 	getImprovementPlanByPracIdServices,
 	updateImprovementPlanServices
 } from '../../../services/improvementPlan/improvementPlanServices.js';
-import { setImprovementPlans, createdImprovementPlan, updateImprovementPlanID } from './improvementPlanSlice.js';
+import {
+	setImprovementPlans,
+	createdImprovementPlan,
+	updateImprovementPlanID,
+	setImprovementPlan
+} from './improvementPlanSlice.js';
+
+export const tSetImprovementPlan = (plmeId, { plmeNombre, pracId }, index) => async (dispatch) => {
+
+	try {
+		dispatch(setImprovementPlan({ plmeId, plmeNombre, pracId }));
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const tGetAllImprovementPlan = () => async (dispatch) => {
 	try {
@@ -39,7 +53,7 @@ export const tCreateImprovementPlan = ({ plmeNombre, pracId }, objImprovementPla
 
 export const tUpdateImprovementPlan = (plmeId, { plmeNombre, pracId }, index) => async (dispatch) => {
 	try {
-		console.log({plmeId,  plmeNombre, pracId , index})
+		console.log({ plmeId, plmeNombre, pracId, index });
 		const data = await updateImprovementPlanServices(plmeId, { plmeNombre, pracId });
 		console.log(data);
 		dispatch(updateImprovementPlanID({ data, index }));

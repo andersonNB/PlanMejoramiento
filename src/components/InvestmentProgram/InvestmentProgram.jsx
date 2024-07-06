@@ -22,7 +22,7 @@ export const InvestmentProgram = () => {
 		createdInvestmentProgram({ prinNombre, liesId, ejesId });
 		form.resetFields();
 	};
-
+//TODO: Los listados son dependientes uno del otro,las lineas dependen del eje estrategico seleccionado
 	return (
 		<Row style={{ backgroundColor: '#fafafa', borderRadius: '10px' }} justify="center" gutter={[16, 16]}>
 			<Col xs={12} sm={12} md={24} lg={24}>
@@ -112,7 +112,7 @@ export const InvestmentProgram = () => {
 				</Form>
 			</Col>
 			<Col xs={12} sm={12} md={24} lg={24}>
-				<TableInvestmentProgram datasource={investmentPrograms}  />
+				<TableInvestmentProgram datasource={investmentPrograms} />
 			</Col>
 		</Row>
 	);

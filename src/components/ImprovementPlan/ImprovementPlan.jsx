@@ -19,14 +19,15 @@ export const ImprovementPlan = () => {
 
 	useEffect(() => {
 		getAllImprovementPlans();
-	}, [improvementPlans.length > 0])
-	
+	}, [improvementPlans.length > 0]);
+
 
 	const onSubmitProgram = (values) => {
 		console.log(values);
 		createImprovementPlan(values);
 	};
-
+	//TODO: Listar los planes de mejoramiento por programa academico si es un director de programa, al momento de crear mostrar listado de programas solo para el admin
+	//TODO: Agregar la manera o la opcion de ir a las acciones de mejora del plan
 	return (
 		<Row style={{ backgroundColor: '#fafafa', borderRadius: '10px' }} justify="center" gutter={[16, 16]}>
 			<Col xs={12} sm={12} md={24} lg={24}>
@@ -95,7 +96,8 @@ export const ImprovementPlan = () => {
 				</Form>
 			</Col>
 			<Col xs={12} sm={12} md={24} lg={24}>
-				<TableImprovementPlan datasource={improvementPlans}  academicPrograms={academicPrograms}/>
+
+				<TableImprovementPlan datasource={improvementPlans} academicPrograms={academicPrograms} />
 			</Col>
 		</Row>
 	);
