@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import {  Table, Typography, Form } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Table, Typography } from 'antd';
 import PropTypes from 'prop-types';
-import useSelectorImprovementPlan from '../../hooks/selectors/useSelectorImprovementPlan';
+import useSelectorTypeSituation from '../../hooks/selectors/useSelectorTypeSituation';
+
 /*import Highlighter from 'react-highlight-words';*/
 
 // eslint-disable-next-line react/display-name
 const TableTypeSituation = React.memo(({ datasource = [] }) => {
-	
-	const [form] = Form.useForm();
 	const [rowClick, setRowClick] = useState([{}]);
-	const { updateImprovementPlan } = useSelectorImprovementPlan();
-
+	const { updateTypeSituationID } = useSelectorTypeSituation();
 
 	const columns = [
-        {
-            title: 'ID',
-            dataIndex:'tisiId',
-            key:'tisiId',
-            width: '25%',
-        },
+		{
+			title: 'ID',
+			dataIndex: 'tisiId',
+			key: 'tisiId',
+			width: '25%',
+		},
 		{
 			title: 'Nombre',
 			dataIndex: 'tisiNombre',
@@ -30,7 +28,7 @@ const TableTypeSituation = React.memo(({ datasource = [] }) => {
 			title: 'Acción',
 			dataIndex: 'address',
 			key: 'address',
-            width: '25%',
+			width: '25%',
 			render: (text, record, index) => {
 				const editable = true;
 				// const editable = isEditing(record);
@@ -38,12 +36,12 @@ const TableTypeSituation = React.memo(({ datasource = [] }) => {
 					editable && (
 						<span>
 							<Typography.Link
-								onClick={() => console.log('clic')}
+								onClick={() => handleEdit(record)}
 								style={{
 									marginRight: 8,
 								}}
 							>
-								Editar
+								<EditOutlined /> Editar
 							</Typography.Link>
 						</span>
 					)
@@ -58,17 +56,15 @@ const TableTypeSituation = React.memo(({ datasource = [] }) => {
 
 	const handleEdit = (record) => {
 		// e.stopPropagation();
+		console.log(record);
 		const selectedRow = datasource.filter((item) => {
 			return item.plmeId === record.plmeId;
 		});
 
 		const indexSelectedRow = datasource.findIndex((item) => item.plmeId === record.plmeId);
-		form.setFieldsValue({
-			plmeNombre: selectedRow.plmeNombre,
-			pracId: selectedRow.programaAcademico?.pracId,
-		});
-		setIsModalOpen(true);
 		setRowClick([...selectedRow, indexSelectedRow]);
+
+		// updateTypeSituationID({ id: record.tisiId });
 	};
 
 	return (

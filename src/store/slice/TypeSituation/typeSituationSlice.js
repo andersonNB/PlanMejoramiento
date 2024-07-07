@@ -12,7 +12,8 @@ export const typeSituationSlice = createSlice({
         },
         updateTypeSituationID: (state, action) => {
             const { data, index } = action.payload;
-            state.typeSituations[index] = { ...data };
+			console.log({data, index})
+			Object.assign(state.improvementPlans[index], data);
         },
         setAllTypeSituation: (state, action) => {
             state.typeSituations = action.payload;
@@ -20,4 +21,4 @@ export const typeSituationSlice = createSlice({
     }
 });
 
-export const {createdTypeSituation, setAllTypeSituation} = typeSituationSlice.actions;
+export const {createdTypeSituation, setAllTypeSituation, updateTypeSituationID} = typeSituationSlice.actions;

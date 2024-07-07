@@ -1,5 +1,5 @@
-import { createdTypeSituationServices, getAllTypeSituationServices } from '../../../services/TypeSituation/TypeSituationServices';
-import { createdTypeSituation, setAllTypeSituation } from './typeSituationSlice';
+import { createdTypeSituationServices, getAllTypeSituationServices, updateTypeSituationServicesbyID } from '../../../services/TypeSituation/TypeSituationServices';
+import { createdTypeSituation, setAllTypeSituation, updateTypeSituationID } from './typeSituationSlice';
 
 export const tCreateTypeSituation =
 	({ tisiNombre }) =>
@@ -18,5 +18,14 @@ export const tGetAllTypeSituation = () => async (dispatch) => {
 		dispatch(setAllTypeSituation(res));
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+export const tUpdateTypeSituationID = ({ id }) => async (dispatch) => {
+	try {
+		const res = await updateTypeSituationServicesbyID({ id });
+		dispatch(updateTypeSituationID(res));		
+	} catch (error) {
+		console.log(error)		
 	}
 };

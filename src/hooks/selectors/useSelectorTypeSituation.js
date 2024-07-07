@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { tCreateTypeSituation, tGetAllTypeSituation } from '../../store/slice/TypeSituation/thunkTypeSituation';
+import { tCreateTypeSituation, tGetAllTypeSituation, tUpdateTypeSituationID } from '../../store/slice/TypeSituation/thunkTypeSituation';
 
 const useSelectorTypeSituation = () => {
 	const dispatch = useDispatch();
@@ -14,12 +14,18 @@ const useSelectorTypeSituation = () => {
         dispatch(tGetAllTypeSituation());
     };
 
+	const updateTypeSituationID = ({ id }) => {
+		dispatch(tUpdateTypeSituationID({ id }));
+	
+	}
+
 	return {
 		//STATE
 		typeSituations,
 		//FUNCTIONS
 		createTypeSituation,
         getAllTypeSituation,
+		updateTypeSituationID
 	};
 };
 

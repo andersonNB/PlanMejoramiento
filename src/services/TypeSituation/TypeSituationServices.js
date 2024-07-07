@@ -9,13 +9,23 @@ export const createdTypeSituationServices = async ({ tisiNombre }) => {
 	}
 };
 
-
 export const getAllTypeSituationServices = async () => {
-    try{
-        const {data} = await planDeMejoramientoApi.get('/situation-type');
-        console.log(data)
-        return data;
-    }catch(error){
-        console.log(error)
-    }
-}
+	try {
+		const { data } = await planDeMejoramientoApi.get('/situation-type');
+		console.log(data);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const updateTypeSituationServicesbyID = async ({ id }) => {
+	try {
+		const { data } = await planDeMejoramientoApi.put(`/situation-type/${id}`);
+		console.log(data);
+
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};

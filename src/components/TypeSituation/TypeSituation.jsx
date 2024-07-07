@@ -7,7 +7,7 @@ const TypeSituationComponent = () => {
 	const [form] = Form.useForm();
 	const { createTypeSituation, typeSituations, getAllTypeSituation } = useSelectorTypeSituation();
 
-	// TODO: Mirar por que se llama el servicio 3 veces
+	// TODO: Mirar por que se llama el servicio 3 veces -> 1, por el llamado, 1 por el useffect, 1 por el ciclo de vida de React en modo dev
 	useEffect(() => {
 		getAllTypeSituation();
 	}, [typeSituations.length > 0]);
@@ -63,7 +63,7 @@ const TypeSituationComponent = () => {
 				</Form>
 			</Col>
 			<Col xs={12} sm={12} md={24} lg={24}>
-				{typeSituations.length > 0 && <TableTypeSituation datasource={typeSituations} />}
+				{typeSituations?.length > 0 && <TableTypeSituation datasource={typeSituations} />}
 			</Col>
 		</Row>
 	);
