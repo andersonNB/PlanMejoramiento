@@ -93,8 +93,8 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 			editable: true
 		},
 		{
-			title: 'Tipo Factor',
-			dataIndex: ['TipoFactor', 'tifaNombre'],
+			title: 'tipo Factor',
+			dataIndex: ['tipoFactor', 'tifaNombre'],
 			width: '15%',
 			editable: true
 		},

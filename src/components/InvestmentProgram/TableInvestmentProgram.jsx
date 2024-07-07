@@ -2,18 +2,18 @@ import React, { useRef, useState } from 'react';
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Input, Button, Table, Space, Typography, Popconfirm, Modal, Row, Col, Form, Select } from 'antd';
 import PropTypes from 'prop-types';
-import useSelectorImprovementPlan from '../../hooks/selectors/useSelectorImprovementPlan';
-/*import Highlighter from 'react-highlight-words';*/
+import useSelectorInvestmentProgram from '../../hooks/selectors/useSelectorInvestmentProgram.js';
+
 
 // eslint-disable-next-line react/display-name
-const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [] }) => {
+const TableInvestmentProgram = React.memo(({ datasource = [], academicPrograms = [] }) => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [form] = Form.useForm();
 	const [rowClick, setRowClick] = useState([{}]);
-	const { updateImprovementPlan } = useSelectorImprovementPlan();
+	const { createdInvestmentProgram } = useSelectorInvestmentProgram();
 
 	const handleSearch = (selectedKeys, confirm, dataIndex) => {
 		confirm();
@@ -122,23 +122,23 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 	const columns = [
 		{
 			title: 'Nombre',
-			dataIndex: 'plmeNombre',
-			key: 'plmeNombre',
+			dataIndex: 'prinNombre',
+			key: 'prinNombre',
 			width: '30%',
 			...getColumnSearchProps('plmeNombre'),
 		},
 		{
-			title: 'Programa Academico',
-			dataIndex: ['programaAcademico', 'pracNombre'],
-			key: ['programaAcademico', 'pracNombre'],
+			title: 'Línea Estrategica',
+			dataIndex: ['lineaEstrategica', 'liesNombre'],
+			key: ['lineaEstrategica', 'liesNombre'],
 			width: '30%',
-			...getColumnSearchProps('pracNombre'),
+			...getColumnSearchProps('liesNombre'),
 		},
 		{
 			title: 'Acción',
-			dataIndex: 'plmeId',
-			key: 'plmeId',
-			...getColumnSearchProps('plmeId'),
+			dataIndex: 'prinId',
+			key: 'prinId',
+			...getColumnSearchProps('prinId'),
 			sorter: (a, b) => a.address.length - b.address.length,
 			sortDirections: ['descend', 'ascend'],
 			render: (text, record, index) => {
@@ -164,16 +164,16 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 
 	const onSubmitUpdate = (values) => {
 		console.log(rowClick)
-		updateImprovementPlan(rowClick[0].plmeId, values, rowClick[1]);
+		updateImprovementPlan(rowClick[0].prinId, values, rowClick[1]);
 	};
 
 	const handleEdit = (record) => {
 		// e.stopPropagation();
 		const selectedRow = datasource.filter((item) => {
-			return item.plmeId === record.plmeId;
+			return item.prinId === record.prinId;
 		});
 
-		const indexSelectedRow = datasource.findIndex((item) => item.plmeId === record.plmeId);
+		const indexSelectedRow = datasource.findIndex((item) => item.prinId === record.prinId);
 		form.setFieldsValue({
 			plmeNombre: selectedRow.plmeNombre,
 			pracId: selectedRow.programaAcademico?.pracId,
@@ -188,7 +188,7 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 				columns={columns}
 				dataSource={datasource.map((item) => ({
 					...item,
-					key: item.plmeId,
+					key: item.prinId,
 				}))}
 				onRow={(record, index) => {
 					return {
@@ -265,9 +265,8 @@ const TableImprovementPlan = React.memo(({ datasource = [], academicPrograms = [
 	);
 });
 
-TableImprovementPlan.propTypes = {
+TableInvestmentProgram.propTypes = {
 	datasource: PropTypes.array.isRequired,
-	academicPrograms: PropTypes.array.isRequired,
 };
 
-export default TableImprovementPlan;
+export default TableInvestmentProgram;

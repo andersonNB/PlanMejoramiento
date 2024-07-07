@@ -54,7 +54,11 @@ const HomePage = () => {
 			getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, null, '/plan-mejoramiento'),
 			getItem('PROYECTOS', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')])
 		]
-		: [getItem('En construcción...', '1', <FileOutlined />)];
+		: [
+			getItem('PLAN DE MEJORAMIENTO', '2', <DesktopOutlined />, [
+				getItem('Planes de Mejoramiento', '2-1', <DesktopOutlined />, null, '/plan-mejoramiento'),
+				getItem('Acciones de Mejora', '2-2', <FileProtectOutlined />, null, '/accion-mejora')
+			])];
 
 	console.log('|||| desde home ', user);
 	useEffect(() => {
@@ -93,6 +97,7 @@ const HomePage = () => {
 	};
 
 	console.log({ user });
+	console.log('usuario ? ', usuario);
 	return (
 		<Layout
 			style={{

@@ -13,3 +13,4 @@ export * from './StrategicLine/StrategicLine';
 export { default as TableStrategicLine } from './StrategicLine/TableStrategicLine';
 export { default as Table } from './Table/Table';
 export * from './TypeSituation/TypeSituation';
+export * from './ImprovementAction/ImprovementAction.jsx';
