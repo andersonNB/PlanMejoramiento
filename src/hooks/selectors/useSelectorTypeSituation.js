@@ -14,8 +14,8 @@ const useSelectorTypeSituation = () => {
         dispatch(tGetAllTypeSituation());
     };
 
-	const updateTypeSituationID = ({ id }) => {
-		dispatch(tUpdateTypeSituationID({ id }));
+	const updateTypeSituationID = ({ id ,tisiNombre}) => {
+		dispatch(tUpdateTypeSituationID({ id, tisiNombre }));
 	
 	}
 

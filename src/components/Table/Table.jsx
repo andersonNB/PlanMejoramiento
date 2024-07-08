@@ -154,7 +154,7 @@ const TableDinamic = React.memo(({ datasource = [] }) => {
 			})
 		};
 	});
-	// console.log({mergedColumns})
+
 	return (
 		<Form form={form} component={false}>
 			<Table

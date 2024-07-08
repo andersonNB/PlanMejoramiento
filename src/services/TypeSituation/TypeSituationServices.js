@@ -19,9 +19,9 @@ export const getAllTypeSituationServices = async () => {
 	}
 };
 
-export const updateTypeSituationServicesbyID = async ({ id }) => {
+export const updateTypeSituationServicesbyID = async ({ id, tisiNombre }) => {
 	try {
-		const { data } = await planDeMejoramientoApi.put(`/situation-type/${id}`);
+		const { data } = await planDeMejoramientoApi.put(`/situation-type/${id}`, { tisiNombre });
 		console.log(data);
 
 		return data;

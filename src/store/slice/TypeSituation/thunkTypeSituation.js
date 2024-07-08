@@ -21,9 +21,9 @@ export const tGetAllTypeSituation = () => async (dispatch) => {
 	}
 };
 
-export const tUpdateTypeSituationID = ({ id }) => async (dispatch) => {
+export const tUpdateTypeSituationID = ({ id, tisiNombre }) => async (dispatch) => {
 	try {
-		const res = await updateTypeSituationServicesbyID({ id });
+		const res = await updateTypeSituationServicesbyID({ id, tisiNombre });
 		dispatch(updateTypeSituationID(res));		
 	} catch (error) {
 		console.log(error)		
